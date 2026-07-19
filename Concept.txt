@@ -1,8 +1,5 @@
 ﻿
 /* SZKIC PROJEKTU
- * problemy do rozwiązania:
- * - czy Cluster.cs ma przechowywać metody zapisu, czy ClusterManager.cs?
- * - jak prawidłowo i gdzie połączyć listę klastrów z listą w json?
 
 #Program.cs
     LoadClusters()
@@ -13,13 +10,12 @@
 #ClusterManager.cs
     List<Cluster> Clusters
     LoadClusters(){}
+    SaveCluster(){}
     ClusterCreator(){}
     
 
 #Cluster.cs
     Cluster(name, src, dest)
-    Load()
-    Save()
 
 
 #UI.cs
