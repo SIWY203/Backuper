@@ -2,6 +2,7 @@
 //  Warstwa prezentacji
 // ==========================
 
+using static ClusterManager;
 class UI
 {
     public static void Log(params object[] logs)
@@ -29,11 +30,27 @@ class UI
         }
 
         Cluster newCluster = new Cluster(name, source, target);
-        bool isAdded = ClusterManager.AddCluster(newCluster); // jeśli już istniał: false
+        bool isAdded = AddCluster(newCluster); // jeśli już istniał: false
 
         if (isAdded) Console.WriteLine($"Cluster {newCluster.Name} added!");
         else Console.WriteLine($"Cluster {newCluster.Name} already exists!");
 
+    }
+
+    public static void Menu()
+    {
+        Console.WriteLine($"============ Backuper ============\n");
+        if (Clusters.Count > 0)
+        {
+            Console.WriteLine("Cluster list:");
+            for (int i = 0; i < Clusters.Count; i++)
+            {
+                Console.WriteLine($"[{i + 1:00}] {Clusters[i].Name}");
+            }
+        }
+
+        Console.WriteLine($"[X] test");
+        
     }
 
 }

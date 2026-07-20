@@ -4,15 +4,15 @@ class Program
 {
     public static void Main(string[] args)
     {
+
         LoadClusters();
         if (Clusters.Count == 0)
         {
             UI.RunCreator();
             SaveClusters();
         }
-            
 
-        //Menu()
+        UI.Menu();
 
 
     }
