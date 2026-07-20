@@ -43,6 +43,10 @@ class ClusterManager
         Clusters = JsonSerializer.Deserialize<List<Cluster>>(json, options) ?? new List<Cluster>();
     }
 
+    public static void ClusterCreator()
+    {
+
+    }
 
 
 }

@@ -11,7 +11,7 @@
     List<Cluster> Clusters
     LoadClusters(){}
     SaveCluster(){}
-    ClusterCreator(){}
+    RunCreator(){}
     
 
 #Cluster.cs
