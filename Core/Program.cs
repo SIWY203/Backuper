@@ -1,9 +1,17 @@
-﻿class Program
+﻿using static ClusterManager;
+
+class Program
 {
     public static void Main(string[] args)
     {
-        //LoadClusters()
-        //if Clusters count = 0: ClusterCreator()
+        LoadClusters();
+        if (Clusters.Count == 0)
+        {
+            UI.RunCreator();
+            SaveClusters();
+        }
+            
+
         //Menu()
 
 

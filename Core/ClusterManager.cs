@@ -39,13 +39,9 @@ class ClusterManager
     public static void LoadClusters()
     {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        if (!File.Exists(ConfigPath)) return;
         var json = File.ReadAllText(ConfigPath);
         Clusters = JsonSerializer.Deserialize<List<Cluster>>(json, options) ?? new List<Cluster>();
-    }
-
-    public static void ClusterCreator()
-    {
-
     }
 
 

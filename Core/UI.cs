@@ -24,12 +24,15 @@ class UI
 
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(target))
         {
-            Console.WriteLine("Błąd: Wszystkie pola muszą być wypełnione!");
+            Console.WriteLine("Error: All fields must be filled!");
             return;
         }
 
         Cluster newCluster = new Cluster(name, source, target);
         bool isAdded = ClusterManager.AddCluster(newCluster); // jeśli już istniał: false
+
+        if (isAdded) Console.WriteLine($"Cluster {newCluster.Name} added!");
+        else Console.WriteLine($"Cluster {newCluster.Name} already exists!");
 
     }
 
