@@ -8,11 +8,11 @@ class Program
         LoadClusters();
         if (Clusters.Count == 0)
         {
-            UI.RunCreator();
+            ConsoleUI.RunCreator();
             SaveClusters();
         }
 
-        UI.Menu();
+        ConsoleUI.Menu();
 
 
     }
