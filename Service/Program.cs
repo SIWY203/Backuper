@@ -8,7 +8,7 @@ class Program
         LoadClusters();
         if (Clusters.Count == 0)
         {
-            ConsoleUI.RunCreator();
+            ClusterUI.RunCreator();
             SaveClusters();
         }
 

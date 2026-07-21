@@ -29,6 +29,13 @@ class ClusterUI
 
     }
 
+    public static void Details(Cluster c)
+    {
+        Console.WriteLine($"Cluster {c.Name}");
+        Console.WriteLine($"Source path: {c.Source}");
+        Console.WriteLine($"Target path: {c.Target}");
+    }
+
 
 }
 
