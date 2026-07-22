@@ -1,4 +1,5 @@
 ﻿using static ClusterManager;
+using static InputManager;
 
 class ConsoleUI
 {
@@ -24,13 +25,12 @@ class ConsoleUI
         Console.WriteLine($"[A] Add cluster");
         Console.WriteLine($"[R] Remove cluster");
         Console.WriteLine($"[Q] Quit\n");
-        Console.Write($"Select: ");
 
+        Console.Write($"Select: ");
         string input = Console.ReadLine() ?? "";
-        bool success = int.TryParse(input, out int number);
-        if (success && number - 1 >= 0 && number-1 < Clusters.Count)
+        if (IsWithinScope(input, Clusters, out int num))
         {
-            ClusterUI.Details(Clusters[number-1]);
+            ClusterUI.Details(Clusters[num-1]);
         }
         if (input.ToLower() == "a") ClusterUI.RunCreator();
         if (input.ToLower() == "r") ClusterUI.RunRemover();

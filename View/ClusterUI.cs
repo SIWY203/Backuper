@@ -1,4 +1,5 @@
 ﻿using static ClusterManager;
+using static InputManager;
 
 class ClusterUI
 {
@@ -42,8 +43,7 @@ class ClusterUI
 
         Console.Write($"\nSelect: ");
         string input = Console.ReadLine() ?? "";
-        bool success = int.TryParse(input, out int num);
-        if (success && num > 0 && num <= Clusters.Count)
+        if (IsWithinScope(input, Clusters, out int num))
         {
             Cluster c = Clusters[num-1];
             RemoveCluster(c);
