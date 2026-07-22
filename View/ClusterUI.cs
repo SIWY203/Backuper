@@ -4,8 +4,8 @@ class ClusterUI
 {
     public static void RunCreator()
     {
+        Console.Clear();
         Console.WriteLine("=== CLUSTER CREATOR ===");
-
         Console.Write("Enter cluster name: ");
         string name = Console.ReadLine() ?? string.Empty;
 
@@ -26,14 +26,38 @@ class ClusterUI
 
         if (isAdded) Console.WriteLine($"Cluster {newCluster.Name} added!");
         else Console.WriteLine($"Cluster {newCluster.Name} already exists!");
+        Console.ReadLine();
+
+    }
+
+    public static void RunRemover()
+    {
+        Console.Clear();
+        Console.WriteLine($"=== CLUSTER CREATOR ===");
+        Console.WriteLine($"Select to remove:");
+        for (int i = 0; i < Clusters.Count; i++)
+        {
+            Console.WriteLine($"[{i+1}] {Clusters[i].Name}");
+        }
+
+        Console.Write($"\nSelect: ");
+        string input = Console.ReadLine() ?? "";
+        bool success = int.TryParse(input, out int num);
+        if (success && num > 0 && num <= Clusters.Count)
+        {
+            Cluster c = Clusters[num-1];
+            RemoveCluster(c);
+        }
 
     }
 
     public static void Details(Cluster c)
     {
+        Console.Clear();
         Console.WriteLine($"Cluster {c.Name}");
         Console.WriteLine($"Source path: {c.Source}");
         Console.WriteLine($"Target path: {c.Target}");
+        Console.ReadLine();
     }
 
 

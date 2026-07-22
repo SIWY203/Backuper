@@ -17,6 +17,7 @@ class ClusterManager
         if (Clusters.Contains(cluster))
         {
             Clusters.Remove(cluster);
+            SaveClusters();
         }
         
     }

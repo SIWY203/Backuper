@@ -12,7 +12,11 @@ class Program
             SaveClusters();
         }
 
-        ConsoleUI.Menu();
+        while (true)
+        {
+            ConsoleUI.Menu();
+        }
+        
 
 
     }

@@ -9,6 +9,7 @@ class ConsoleUI
 
     public static void Menu()
     {
+        Console.Clear();
         Console.WriteLine($"============ Backuper ============");
         if (Clusters.Count > 0)
         {
@@ -23,15 +24,17 @@ class ConsoleUI
         Console.WriteLine($"[A] Add cluster");
         Console.WriteLine($"[R] Remove cluster");
         Console.WriteLine($"[Q] Quit\n");
-        Console.Write($"Wybierz: ");
+        Console.Write($"Select: ");
 
         string input = Console.ReadLine() ?? "";
         bool success = int.TryParse(input, out int number);
-        if (success && number - 1 > 0 && number-1 < Clusters.Count)
+        if (success && number - 1 >= 0 && number-1 < Clusters.Count)
         {
             ClusterUI.Details(Clusters[number-1]);
         }
         if (input.ToLower() == "a") ClusterUI.RunCreator();
+        if (input.ToLower() == "r") ClusterUI.RunRemover();
+        if (input.ToLower() == "q") Environment.Exit(0);
 
 
     }
