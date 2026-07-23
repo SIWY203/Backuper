@@ -1,5 +1,6 @@
 ﻿using static ClusterManager;
 using static InputManager;
+using static BackupManager;
 
 class ClusterUI
 {
@@ -53,12 +54,46 @@ class ClusterUI
 
     public static void Details(Cluster c)
     {
-        Console.Clear();
-        Console.WriteLine($"Cluster {c.Name}");
-        Console.WriteLine($"Source path: {c.Source}");
-        Console.WriteLine($"Target path: {c.Target}");
-        Console.ReadLine();
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine($"Cluster {c.Name}");
+            Console.WriteLine($"Source path: {c.Source}");
+            Console.WriteLine($"Target path: {c.Target}\n");
+
+            Console.WriteLine($"[1] Create Backup");
+            Console.WriteLine($"[2] Restore Backup");
+            Console.WriteLine($"[3] Show All Backups");
+            Console.WriteLine($"[Q] Back\n");
+
+            Console.Write($"Select: ");
+            string input = Console.ReadLine() ?? "";
+            if (input.ToLower() == "q") return;
+            if (!IsWithinScope(input, (1, 3), out int num)) continue;
+
+            switch (num)
+            {
+                case 1:
+                    CreateBackup();
+                    break;
+                case 2:
+                    RestoreBackup();
+                    break;
+                case 3:
+                    ShowBackups();
+                    break;
+                default:
+                    break;
+            }
+
+            return; // leave after action
+        }
+       
+
     }
+
+
+
 
 
 }
