@@ -12,13 +12,11 @@ class ClusterManager
         return SaveClusters();
     }
 
-    public static void RemoveCluster(Cluster cluster)
+    public static bool RemoveCluster(Cluster cluster)
     {
-        if (Clusters.Contains(cluster))
-        {
-            Clusters.Remove(cluster);
-            SaveClusters();
-        }
+        if (!Clusters.Contains(cluster)) return false;
+        Clusters.Remove(cluster);
+        return SaveClusters();
         
     }
 
@@ -26,8 +24,7 @@ class ClusterManager
     {
         try
         {
-            string? dirPath = Path.GetDirectoryName(ConfigPath);
-            if (!string.IsNullOrEmpty(dirPath)) Directory.CreateDirectory(dirPath);
+            EnsureDirectoryExists(ConfigPath);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(Clusters, options);
@@ -49,5 +46,13 @@ class ClusterManager
         Clusters = JsonSerializer.Deserialize<List<Cluster>>(json, options) ?? new List<Cluster>();
     }
 
+    private static void EnsureDirectoryExists(string filePath)
+    {
+        string? dirPath = Path.GetDirectoryName(filePath);
+        if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
+        {
+            Directory.CreateDirectory(dirPath);
+        }
+    }
 
 }
