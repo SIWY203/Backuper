@@ -1,24 +1,54 @@
 ﻿class BackupManager
 {
-    public static void CreateBackup()
+    public static bool CreateBackup(Cluster c)
     {
-        Console.WriteLine("create");
-        Console.ReadLine();
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
 
+        // backup folder
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+        string targetDir = Path.Combine(c.Target, $"{c.Name}_{timestamp}");
+        CloneDirectory(c.Source, targetDir);
+        return true;
     }
 
-    public static void RestoreBackup()
-    {
-        Console.WriteLine("restore");
-        Console.ReadLine();
 
+    public static bool RestoreBackup(Cluster c)
+    {
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
+
+        string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
+        if (backups.Length == 0) return false; // no backups
+
+        string latest = backups.OrderBy(d => d).Last();
+        CloneDirectory(latest, c.Source);
+        return true;
     }
+
 
     public static void ShowBackups()
     {
-        Console.WriteLine("show");
-        Console.ReadLine();
+        //ClusterManager.Clusters
 
+    }
+
+
+    private static void CloneDirectory(string src, string dest)
+    {
+        Directory.CreateDirectory(dest);
+
+        foreach (var file in Directory.GetFiles(src))
+        {
+            string fileName = Path.GetFileName(file);
+            string fileDest = Path.Combine(dest, fileName);
+            File.Copy(file, fileDest, true);
+        }
+
+        foreach (var dir in Directory.GetDirectories(src))
+        {
+            string dirName = Path.GetFileName(dir);
+            string dirDest = Path.Combine(dest, dirName);
+            CloneDirectory(dir, dirDest); // recursion
+        }
     }
 
 }
