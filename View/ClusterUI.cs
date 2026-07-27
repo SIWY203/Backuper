@@ -1,6 +1,5 @@
 ﻿using static ClusterManager;
 using static InputManager;
-using static BackupManager;
 
 class ClusterUI
 {
@@ -74,13 +73,13 @@ class ClusterUI
             switch (num)
             {
                 case 1:
-                    CreateBackup();
+                    BackupUI.Create(c);
                     break;
                 case 2:
-                    RestoreBackup();
+                    BackupUI.Restore(c);
                     break;
                 case 3:
-                    ShowBackups();
+                    BackupUI.Show();
                     break;
                 default:
                     break;
