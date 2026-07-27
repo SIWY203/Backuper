@@ -1,8 +1,10 @@
 ﻿
 /* SZKIC PROJEKTU
 
-	Dodać usuwanie zawartości folderu, do którego się kopiuje inną zawartość, żeby wykluczyć mieszanie się
-	Zabezpieczyć proces: kopiuj do temp > usuń folder cel > zmień nazwe na cel
+	- Dodać usuwanie zawartości folderu, do którego się kopiuje inną zawartość, żeby wykluczyć mieszanie się
+	- Zabezpieczyć proces: kopiuj do temp > usuń folder cel > zmień nazwe na cel
+	- wykluczyć z BackupManager.CloneDirectory() możliwość przekopiowania folderu do samego siebie!!! WAŻNE!
+	- zablokować możliwość ustawienia ściezki c.Target wewnątrz c.Source, ważne!!!
 
 */
 
