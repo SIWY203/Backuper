@@ -6,5 +6,10 @@
 	- wykluczyć z BackupManager.CloneDirectory() możliwość przekopiowania folderu do samego siebie!!! WAŻNE!
 	- zablokować możliwość ustawienia ściezki c.Target wewnątrz c.Source, ważne!!!
 
+	- dodać grupowanie folderów do backupów
+	- dodać autobackup robiony co X czasu
+	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii
+	- dodać ustawienia powyższych opcji
+
 */
 
