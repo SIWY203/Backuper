@@ -25,10 +25,17 @@
     }
 
 
-    public static void ShowBackups()
+    public static List<string> GetBackups(Cluster c)
     {
-        //ClusterManager.Clusters
+        string pattern = $"{c.Name}_*";
+        string[] paths = Directory.GetDirectories(c.Target, pattern);
+        List<string> backups = paths.ToList();
 
+        if (!Directory.Exists(c.Target))
+        {
+            return new List<string>();
+        }
+        return backups;
     }
 
 

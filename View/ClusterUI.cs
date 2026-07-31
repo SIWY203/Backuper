@@ -79,7 +79,7 @@ class ClusterUI
                     BackupUI.Restore(c);
                     break;
                 case 3:
-                    BackupUI.Show();
+                    BackupUI.Show(c);
                     break;
                 default:
                     break;

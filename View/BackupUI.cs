@@ -23,11 +23,24 @@ class BackupUI
 
     }
 
-    public static void Show()
+    public static void Show(Cluster c)
     {
         Console.Clear();
-        Console.WriteLine("Showing all backups...");
-        ShowBackups();
+        List<string> backups = GetBackups(c);
+
+        if (backups.Count == 0)
+        {
+            Console.WriteLine($"Brak backupów!");
+            Console.ReadLine();
+            return;
+        }
+
+        Console.WriteLine($"Backupy klastra {c.Name}:");
+        foreach (var backup in backups)
+        {
+            Console.WriteLine($" - {backup}");
+        }
+
         Console.ReadLine();
 
     }
