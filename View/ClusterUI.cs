@@ -22,6 +22,12 @@ class ClusterUI
             return;
         }
 
+        if (target.StartsWith(source, StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Error: Destination cannot be a subfolder of source!");
+            return;
+        }            
+
         Cluster newCluster = new Cluster(name, source, target);
         bool isAdded = AddCluster(newCluster); // jeśli już istniał: false
 

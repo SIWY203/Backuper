@@ -2,12 +2,9 @@
 /* SZKIC PROJEKTU
 
 	- może dodać mechanizm snapshotów zapisujących stan przed przywróceniem backupa?
-	- wykluczyć możliwość ZAPISANIA ścieżki dest wewnątrz src podczas tworzenia klastra
-	- zablokować możliwość ustawienia ściezki c.Target wewnątrz c.Source, ważne!!!
-
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
-	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii
+	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii: CleanUp()
 	- dodać ustawienia powyższych opcji
 
 */
