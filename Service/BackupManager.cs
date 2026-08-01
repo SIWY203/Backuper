@@ -19,6 +19,9 @@
         string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
         if (backups.Length == 0) return false; // no backups
 
+        Directory.Delete(c.Source, true);
+        Directory.CreateDirectory(c.Source);
+
         string latest = backups.OrderBy(d => d).Last();
         CloneDirectory(latest, c.Source);
         return true;
@@ -41,6 +44,9 @@
 
     private static void CloneDirectory(string src, string dest)
     {
+        // anti copy loop, if destination is inside source
+        if (dest.StartsWith(src, StringComparison.OrdinalIgnoreCase)) return;
+
         Directory.CreateDirectory(dest);
 
         foreach (var file in Directory.GetFiles(src))
