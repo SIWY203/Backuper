@@ -19,12 +19,21 @@
         string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
         if (backups.Length == 0) return false; // no backups
 
-        Directory.Delete(c.Source, true);
-        Directory.CreateDirectory(c.Source);
+        string temp = $"{c.Source}_temp";
+        Directory.CreateDirectory(temp);
 
         string latest = backups.OrderBy(d => d).Last();
-        CloneDirectory(latest, c.Source);
-        return true;
+        bool success = CloneDirectory(latest, temp);
+
+        if (success)
+        {
+            Directory.Delete(c.Source, true);
+            Directory.Move(temp, c.Source);
+            return true;
+        }
+
+        return false;
+        
     }
 
 
@@ -41,27 +50,45 @@
         return backups;
     }
 
+    public static bool AnyBackupExists(Cluster c)
+    {
+        if (GetBackups(c).Count == 0)
+        {
+            return false;
+        }
+        return true;
+    }
 
-    private static void CloneDirectory(string src, string dest)
+
+    private static bool CloneDirectory(string src, string dest)
     {
         // anti copy loop, if destination is inside source
-        if (dest.StartsWith(src, StringComparison.OrdinalIgnoreCase)) return;
+        if (dest.StartsWith(src, StringComparison.OrdinalIgnoreCase)) return false;
 
-        Directory.CreateDirectory(dest);
-
-        foreach (var file in Directory.GetFiles(src))
+        try
         {
-            string fileName = Path.GetFileName(file);
-            string fileDest = Path.Combine(dest, fileName);
-            File.Copy(file, fileDest, true);
+            Directory.CreateDirectory(dest);
+
+            foreach (var file in Directory.GetFiles(src))
+            {
+                string fileName = Path.GetFileName(file);
+                string fileDest = Path.Combine(dest, fileName);
+                File.Copy(file, fileDest, true);
+            }
+
+            foreach (var dir in Directory.GetDirectories(src))
+            {
+                string dirName = Path.GetFileName(dir);
+                string dirDest = Path.Combine(dest, dirName);
+                CloneDirectory(dir, dirDest); // recursion
+            }
+        }
+        catch (Exception)
+        {
+            return false;
         }
 
-        foreach (var dir in Directory.GetDirectories(src))
-        {
-            string dirName = Path.GetFileName(dir);
-            string dirDest = Path.Combine(dest, dirName);
-            CloneDirectory(dir, dirDest); // recursion
-        }
+        return true;
     }
 
 }

@@ -16,11 +16,37 @@ class BackupUI
     public static void Restore(Cluster c)
     {
         Console.Clear();
-        Console.WriteLine("Restoring backup...");
+        if (!ConfirmRestore())
+        {
+            Console.WriteLine("Anulowano...");
+            Console.ReadLine();
+            return;
+        } 
+        
+        if (!AnyBackupExists(c))
+        {
+            Console.WriteLine("Brak backupów do przywrocenia!");
+            Console.ReadLine();
+            return;
+        } 
+
         bool success = RestoreBackup(c);
         if (success) Console.WriteLine("Przywrócono backup!");
         Console.ReadLine();
 
+    }
+
+    public static bool ConfirmRestore()
+    {
+        Console.Clear();
+        Console.WriteLine($"Czy na pewno chcesz przywrócić backup?");
+        Console.WriteLine($"[T] Tak, przywróć\n[N] Nie, anuluj");
+        Console.Write("Wybierz: ");
+        string input = Console.ReadLine() ?? "";
+        Console.Clear();
+
+        if (input.ToUpper() == "T") return true;
+        return false;
     }
 
     public static void Show(Cluster c)
@@ -28,9 +54,9 @@ class BackupUI
         Console.Clear();
         List<string> backups = GetBackups(c);
 
-        if (backups.Count == 0)
+        if (!AnyBackupExists(c))
         {
-            Console.WriteLine($"Brak backupów!");
+            Console.WriteLine("Brak backupów do wyświetlenia!");
             Console.ReadLine();
             return;
         }
@@ -44,5 +70,6 @@ class BackupUI
         Console.ReadLine();
 
     }
+
 
 }

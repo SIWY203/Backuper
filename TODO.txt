@@ -1,7 +1,6 @@
 ﻿
 /* SZKIC PROJEKTU
 
-	- Zabezpieczyć proces: kopiuj do temp > usuń folder cel > zmień nazwe na cel
 	- może dodać mechanizm snapshotów zapisujących stan przed przywróceniem backupa?
 	- wykluczyć możliwość ZAPISANIA ścieżki dest wewnątrz src podczas tworzenia klastra
 	- zablokować możliwość ustawienia ściezki c.Target wewnątrz c.Source, ważne!!!
