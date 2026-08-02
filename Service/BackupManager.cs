@@ -39,6 +39,8 @@
 
     public static List<string> GetBackups(Cluster c)
     {
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return new List<string>();
+
         string pattern = $"{c.Name}_*";
         string[] paths = Directory.GetDirectories(c.Target, pattern);
         List<string> backups = paths.ToList();
