@@ -1,4 +1,5 @@
 ﻿using static BackupManager;
+using System.Diagnostics;
 
 class BackupUI
 {
@@ -66,6 +67,8 @@ class BackupUI
         {
             Console.WriteLine($" - {backup}");
         }
+
+        Process.Start("explorer.exe", c.Target);
 
         Console.ReadLine();
 
