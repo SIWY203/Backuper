@@ -52,9 +52,30 @@ class ClusterUI
         if (IsWithinScope(input, Clusters, out int num))
         {
             Cluster c = Clusters[num-1];
+
+            if (!ConfirmRemove())
+            {
+                Console.WriteLine("Anulowano...");
+                Console.ReadLine();
+                return;
+            }
+
             RemoveCluster(c);
         }
 
+    }
+
+    public static bool ConfirmRemove()
+    {
+        Console.Clear();
+        Console.WriteLine($"Czy na pewno chcesz usunąć cluster?");
+        Console.WriteLine($"[T] Tak, usuń\n[N] Nie, anuluj");
+        Console.Write("Wybierz: ");
+        string input = Console.ReadLine() ?? "";
+        Console.Clear();
+
+        if (input.ToUpper() == "T") return true;
+        return false;
     }
 
     public static void Details(Cluster c)
