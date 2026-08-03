@@ -6,10 +6,10 @@ class BackupUI
     public static void Create(Cluster c)
     {
         Console.Clear();
-        Console.WriteLine("Creating backup...");
+        Console.WriteLine(Loc.Get("BackupCreating"));
         bool success = CreateBackup(c);
-        if (success) Console.WriteLine("Utworzono backup!");
-        else Console.WriteLine("Niepowodzenie!");
+        if (success) Console.WriteLine(Loc.Get("BackupCreated"));
+        else Console.WriteLine(Loc.Get("Failure"));
         Console.ReadLine();
 
     }
@@ -19,20 +19,20 @@ class BackupUI
         Console.Clear();
         if (!ConfirmRestore())
         {
-            Console.WriteLine("Anulowano...");
+            Console.WriteLine(Loc.Get("Cancelled"));
             Console.ReadLine();
             return;
         } 
         
         if (!AnyBackupExists(c))
         {
-            Console.WriteLine("Brak backupów do przywrocenia!");
+            Console.WriteLine(Loc.Get("NoBackupToRestore"));
             Console.ReadLine();
             return;
         } 
 
         bool success = RestoreBackup(c);
-        if (success) Console.WriteLine("Przywrócono backup!");
+        if (success) Console.WriteLine(Loc.Get("BackupRestored"));
         Console.ReadLine();
 
     }
@@ -40,13 +40,13 @@ class BackupUI
     public static bool ConfirmRestore()
     {
         Console.Clear();
-        Console.WriteLine($"Czy na pewno chcesz przywrócić backup?");
-        Console.WriteLine($"[T] Tak, przywróć\n[N] Nie, anuluj");
-        Console.Write("Wybierz: ");
+        Console.WriteLine(Loc.Get("ConfirmRestoreBackup"));
+        Console.WriteLine(Loc.Get("YesOrNo"));
+        Console.Write(Loc.Get("Select"));
         string input = Console.ReadLine() ?? "";
         Console.Clear();
 
-        if (input.ToUpper() == "T") return true;
+        if (input.ToUpper() == "Y") return true;
         return false;
     }
 

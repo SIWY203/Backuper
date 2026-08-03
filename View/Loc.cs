@@ -1,82 +1,114 @@
-﻿public enum Language { PL, EN }
+﻿public enum Lang { PL, EN }
 
 public static class Loc
 {
-    public static Language CurrentLanguage { get; set; } = Language.EN;
+    public static Lang CurrentLang { get; set; } = Lang.EN;
 
-    private static readonly Dictionary<string, Dictionary<Language, string>> Dictionary = new()
+    private static readonly Dictionary<string, Dictionary<Lang, string>> Dictionary = new()
     {
-        ["HeaderCreator"] = new() 
-        { 
-            [Language.PL] = "=== KREATOR KLASTRA ===", 
-            [Language.EN] = "=== CLUSTER CREATOR ===" },
+        ["HeaderCreator"] = new()  { 
+            [Lang.PL] = "=== KREATOR KLASTRA ===", 
+            [Lang.EN] = "=== CLUSTER CREATOR ===" 
+        },
+        ["BackupCreating"] = new() {
+            [Lang.PL] = "Tworzenie kopii...",
+            [Lang.EN] = "Creating backup..."
+        },
+        ["BackupCreated"] = new() {
+            [Lang.PL] = "Utworzono backup!",
+            [Lang.EN] = "Backup created!"
+        },
+        ["BackupRestored"] = new() {
+            [Lang.PL] = "Przywrócono backup!",
+            [Lang.EN] = "Backup restored!"
+        },
+        ["NoBackupToRestore"] = new() {
+            [Lang.PL] = "Brak backupów do przywrocenia!",
+            [Lang.EN] = "There is no backups to restore!"
+        },
+        ["ConfirmRestoreBackup"] = new() {
+            [Lang.PL] = "Czy na pewno chcesz przywrócić backup?",
+            [Lang.EN] = "Are you sure you want to restoe the backup?"
+        },
 
-        ["CreatingBackup"] = new()
-        {
-            [Language.PL] = "Tworzenie kopii...",
-            [Language.EN] = "Creating backup..." },
-        ["EnterName"] = new() 
-        { 
-            [Language.PL] = "Podaj nazwę klastra: ", 
-            [Language.EN] = "Enter cluster name: " },
-        ["EnterSource"] = new() 
-        { 
-            [Language.PL] = "Podaj ścieżkę źródłową: ",
-            [Language.EN] = "Enter source path: " },
-        ["EnterTarget"] = new() 
-        { 
-            [Language.PL] = "Podaj ścieżkę backupu: ",
-            [Language.EN] = "Enter backup path: " },
-        ["ErrEmptyFields"] = new() 
-        { 
-            [Language.PL] = "Błąd: Wszystkie pola muszą być wypełnione!",
-            [Language.EN] = "Error: All fields must be filled!" },
-        ["ErrSubfolder"] = new() { [Language.PL] = "Błąd: Ścieżka docelowa nie może być podfolderem źródła!", [Language.EN] = "Error: Destination cannot be a subfolder of source!" },
-        ["ClusterAdded"] = new() { [Language.PL] = "Klaster {0} został dodany!", [Language.EN] = "Cluster {0} added!" },
-        ["ClusterExists"] = new() { [Language.PL] = "Klaster {0} już istnieje!", [Language.EN] = "Cluster {0} already exists!" },
-        ["HeaderRemover"] = new() { [Language.PL] = "=== USUWANIE KLASTRA ===", [Language.EN] = "=== CLUSTER REMOVER ===" },
-        ["SelectToRemove"] = new() { [Language.PL] = "Wybierz do usunięcia:", [Language.EN] = "Select to remove:" },
-        ["Select"] = new() 
-        { 
-            [Language.PL] = "Wybierz: ",
-            [Language.EN] = "Select: " },
-        ["Cancelled"] = new()
-        {
-            [Language.PL] = "Anulowano...",
-            [Language.EN] = "Cancelled..."
+        
+
+        ["EnterClusterName"] = new()  { 
+            [Lang.PL] = "Podaj nazwę klastra: ", 
+            [Lang.EN] = "Enter cluster name: " 
         },
-        ["Failure"] = new()
-        {
-            [Language.PL] = "Niepowodzenie!",
-            [Language.EN] = "Failure!"
+        ["EnterClusterSource"] = new()  { 
+            [Lang.PL] = "Podaj ścieżkę źródłową: ",
+            [Lang.EN] = "Enter source path: " },
+        ["EnterClusterTarget"] = new()  { 
+            [Lang.PL] = "Podaj ścieżkę backupu: ",
+            [Lang.EN] = "Enter backup path: " 
         },
-        ["ConfirmRemoveCluster"] = new() 
-        { 
-            [Language.PL] = "Czy na pewno chcesz usunąć cluster?",
-            [Language.EN] = "Are you sure you want to remove cluster?" },
-        ["ConfirmRemove"] = new() { [Language.PL] = "[T] Tak, usuń\n[N] Nie, anuluj", [Language.EN] = "[Y] Yes, remove\n[N] No, cancel" },
-        ["Yes"] = new() 
-        { 
-            [Language.PL] = "T",
-            [Language.EN] = "Y" },
-        ["SourcePath"] = new() 
-        { 
-            [Language.PL] = "Ścieżka źródłowa: ",
-            [Language.EN] = "Source path: " },
-        ["TargetPath"] = new() 
-        { 
-            [Language.PL] = "Ścieżka docelowa: ",
-            [Language.EN] = "Target path: " },
-        ["OptCreateBackup"] = new() { [Language.PL] = "[1] Utwórz kopię zapasową", [Language.EN] = "[1] Create Backup" },
-        ["OptRestoreBackup"] = new() { [Language.PL] = "[2] Przywróć kopię zapasową", [Language.EN] = "[2] Restore Backup" },
-        ["OptShowBackups"] = new() { [Language.PL] = "[3] Pokaż wszystkie kopie zapasowe", [Language.EN] = "[3] Show All Backups" },
-        ["OptBack"] = new() { [Language.PL] = "[Q] Powrót", [Language.EN] = "[Q] Back" }
+        ["ErrEmptyFields"] = new()  { 
+            [Lang.PL] = "Błąd: Wszystkie pola muszą być wypełnione!",
+            [Lang.EN] = "Error: All fields must be filled!" 
+        },
+        ["ErrSubfolder"] = new() { [Lang.PL] = "Błąd: Ścieżka docelowa nie może być podfolderem źródła!", [Lang.EN] = "Error: Destination cannot be a subfolder of source!" },
+        ["ClusterAdded"] = new() { [Lang.PL] = "Klaster {0} został dodany!", [Lang.EN] = "Cluster {0} added!" },
+        ["ClusterExists"] = new() { [Lang.PL] = "Klaster {0} już istnieje!", [Lang.EN] = "Cluster {0} already exists!" },
+        ["HeaderRemover"] = new() { [Lang.PL] = "=== USUWANIE KLASTRA ===", [Lang.EN] = "=== CLUSTER REMOVER ===" },
+        ["SelectToRemove"] = new() { [Lang.PL] = "Wybierz do usunięcia:", [Lang.EN] = "Select to remove:" },
+        ["ConfirmRemoveCluster"] = new()
+        {
+            [Lang.PL] = "Czy na pewno chcesz usunąć cluster?",
+            [Lang.EN] = "Are you sure you want to remove cluster?"
+        },
+        ["ConfirmRemove"] = new()
+        {
+            [Lang.PL] = "[Y] Tak, usuń\n[N] Nie, anuluj",
+            [Lang.EN] = "[Y] Yes, remove\n[N] No, cancel"
+        },
+
+
+
+        ["Select"] = new() { 
+            [Lang.PL] = "Wybierz: ",
+            [Lang.EN] = "Select: " 
+        },
+        ["Cancelled"] = new() {
+            [Lang.PL] = "Anulowano...",
+            [Lang.EN] = "Cancelled..."
+        },
+        ["Failure"] = new() {
+            [Lang.PL] = "Niepowodzenie!",
+            [Lang.EN] = "Failure!"
+        },
+        ["Yes"] = new() { 
+            [Lang.PL] = "Y",
+            [Lang.EN] = "Y" 
+        },
+        ["No"] = new() {
+            [Lang.PL] = "N",
+            [Lang.EN] = "N"
+        },
+        ["YesOrNo"] = new() {
+            [Lang.PL] = "[Y] Tak, przywróć\n[N] Nie, anuluj",
+            [Lang.EN] = "[Y] Yes, restore\n[N] No, cancel"
+        },
+        ["SourcePath"] = new() { 
+            [Lang.PL] = "Ścieżka źródłowa: ",
+            [Lang.EN] = "Source path: " 
+        },
+        ["TargetPath"] = new() { 
+            [Lang.PL] = "Ścieżka docelowa: ",
+            [Lang.EN] = "Target path: " 
+        },
+        ["OptCreateBackup"] = new() { [Lang.PL] = "[1] Utwórz kopię zapasową", [Lang.EN] = "[1] Create Backup" },
+        ["OptRestoreBackup"] = new() { [Lang.PL] = "[2] Przywróć kopię zapasową", [Lang.EN] = "[2] Restore Backup" },
+        ["OptShowBackups"] = new() { [Lang.PL] = "[3] Pokaż wszystkie kopie zapasowe", [Lang.EN] = "[3] Show All Backups" },
+        ["OptBack"] = new() { [Lang.PL] = "[Q] Powrót", [Lang.EN] = "[Q] Back" }
+    
     };
 
 
     public static string Get(string key)
     {
-        if(Dictionary.TryGetValue(key, out var translations) && translations.TryGetValue(CurrentLanguage, out var text))
+        if(Dictionary.TryGetValue(key, out var translations) && translations.TryGetValue(CurrentLang, out var text))
         {
             return text;
         }
