@@ -7,5 +7,7 @@
 	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii: CleanUp()
 	- dodać ustawienia powyższych opcji
 
+	- NOTATKA językowa w CSharpNotatnik 
+
 */
 
