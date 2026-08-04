@@ -9,33 +9,27 @@ public static class Loc
         // ================================
         //  main menu
         // ================================
-        ["HeaderMenu"] = new()
-        {
+        ["HeaderMenu"] = new() {
             [Lang.PL] = "============ Backuper ============",
             [Lang.EN] = "============ Backuper ============"
         },
-        ["ClusterList"] = new()
-        {
+        ["ClusterList"] = new() {
             [Lang.PL] = "Lista klastrów: ",
             [Lang.EN] = "Cluster list:"
         },
-        ["OptAddCluster"] = new()
-        {
+        ["OptAddCluster"] = new() {
             [Lang.PL] = "[A] Dodaj klaster",
             [Lang.EN] = "[A] Add cluster"
         },
-        ["OptRemoveCluster"] = new()
-        {
+        ["OptRemoveCluster"] = new() {
             [Lang.PL] = "[R] Usuń klaster",
             [Lang.EN] = "[R] Remove cluster"
         },
-        ["OptSettings"] = new()
-        {
+        ["OptSettings"] = new() {
             [Lang.PL] = "[S] Ustawienia",
             [Lang.EN] = "[S] Settings"
         },
-        ["Quit"] = new()
-        {
+        ["Quit"] = new() {
             [Lang.PL] = "[Q] Wyjdź",
             [Lang.EN] = "[Q] Quit"
         },
@@ -43,28 +37,23 @@ public static class Loc
         // ================================
         //  settings
         // ================================
-        ["HeaderSettings"] = new()
-        {
+        ["HeaderSettings"] = new() {
             [Lang.PL] = "=========== Ustawienia ===========",
             [Lang.EN] = "============ Settings ============"
         },
-        ["Language"] = new()
-        {
+        ["Language"] = new() {
             [Lang.PL] = "[1] Język",
             [Lang.EN] = "[1] Language"
         },
-        ["LanguageSet"] = new()
-        {
+        ["LanguageSet"] = new() {
             [Lang.PL] = "Ustawiono język polski",
             [Lang.EN] = "English language set"
         },
-        ["English"] = new()
-        {
+        ["English"] = new() {
             [Lang.PL] = "[1] English",
             [Lang.EN] = "[1] English"
         },
-        ["Polish"] = new()
-        {
+        ["Polish"] = new() {
             [Lang.PL] = "[2] Polski",
             [Lang.EN] = "[2] Polski"
         },
