@@ -29,10 +29,44 @@ public static class Loc
             [Lang.PL] = "[R] Usuń klaster",
             [Lang.EN] = "[R] Remove cluster"
         },
+        ["OptSettings"] = new()
+        {
+            [Lang.PL] = "[S] Ustawienia",
+            [Lang.EN] = "[S] Settings"
+        },
         ["Quit"] = new()
         {
-            [Lang.PL] = "[Q] Wyjdź\n",
-            [Lang.EN] = "[Q] Quit\n"
+            [Lang.PL] = "[Q] Wyjdź",
+            [Lang.EN] = "[Q] Quit"
+        },
+
+        // ================================
+        //  settings
+        // ================================
+        ["HeaderSettings"] = new()
+        {
+            [Lang.PL] = "=========== Ustawienia ===========",
+            [Lang.EN] = "============ Settings ============"
+        },
+        ["Language"] = new()
+        {
+            [Lang.PL] = "[1] Język",
+            [Lang.EN] = "[1] Language"
+        },
+        ["LanguageSet"] = new()
+        {
+            [Lang.PL] = "Ustawiono język polski",
+            [Lang.EN] = "English language set"
+        },
+        ["English"] = new()
+        {
+            [Lang.PL] = "[1] English",
+            [Lang.EN] = "[1] English"
+        },
+        ["Polish"] = new()
+        {
+            [Lang.PL] = "[2] Polski",
+            [Lang.EN] = "[2] Polski"
         },
 
         // ================================
@@ -150,8 +184,8 @@ public static class Loc
             [Lang.EN] = "[Q] Back"
         },
         ["Select"] = new() { 
-            [Lang.PL] = "Wybierz: ",
-            [Lang.EN] = "Select: " 
+            [Lang.PL] = "\nWybierz: ",
+            [Lang.EN] = "\nSelect: " 
         },
         ["Cancelled"] = new() {
             [Lang.PL] = "Anulowano...",
@@ -181,6 +215,12 @@ public static class Loc
     public static string Format(string key, params object[] args)
     {
         return string.Format(Get(key), args);
+    }
+
+
+    public static void Set(Lang lang)
+    {
+        CurrentLang = lang;
     }
 
 }
