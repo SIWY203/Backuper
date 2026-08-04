@@ -1,20 +1,15 @@
 ﻿using static ClusterManager;
 using static InputManager;
 
-class ConsoleUI
+class MenuUI
 {
-    public static void Log(params object[] logs)
-    {
-        foreach (var log in logs) Console.WriteLine(log);
-    }
-
     public static void Menu()
     {
         Console.Clear();
-        Console.WriteLine($"============ Backuper ============");
+        Console.WriteLine(Loc.Get("HeaderMenu"));
         if (Clusters.Count > 0)
         {
-            Console.WriteLine("Cluster list:");
+            Console.WriteLine(Loc.Get("ClusterList"));
             for (int i = 0; i < Clusters.Count; i++)
             {
                 Console.WriteLine($"[{i + 1}] {Clusters[i].Name}");
@@ -22,9 +17,9 @@ class ConsoleUI
         }
 
         Console.WriteLine($"");
-        Console.WriteLine($"[A] Add cluster");
-        Console.WriteLine($"[R] Remove cluster");
-        Console.WriteLine($"[Q] Quit\n");
+        Console.WriteLine(Loc.Get("OptAddCluster"));
+        Console.WriteLine(Loc.Get("OptRemoveCluster"));
+        Console.WriteLine(Loc.Get("Quit"));
 
         Console.Write($"Select: ");
         string input = Console.ReadLine() ?? "";
