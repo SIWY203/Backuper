@@ -40,8 +40,8 @@ class BackupUI
     public static bool ConfirmRestore()
     {
         Console.Clear();
+        Console.WriteLine(Loc.Get("AskForRestoreBackup"));
         Console.WriteLine(Loc.Get("ConfirmRestoreBackup"));
-        Console.WriteLine(Loc.Get("YesOrNo"));
         Console.Write(Loc.Get("Select"));
         string input = Console.ReadLine() ?? "";
         Console.Clear();
@@ -57,12 +57,12 @@ class BackupUI
 
         if (!AnyBackupExists(c))
         {
-            Console.WriteLine("Brak backupów do wyświetlenia!");
+            Console.WriteLine(Loc.Get("NoBackupToDisplay"));
             Console.ReadLine();
             return;
         }
 
-        Console.WriteLine($"Backupy klastra {c.Name}:");
+        Console.WriteLine(Loc.Format("BackupsOfCluster", c.Name));
         foreach (var backup in backups)
         {
             Console.WriteLine($" - {backup}");

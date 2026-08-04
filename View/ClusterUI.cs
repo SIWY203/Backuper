@@ -6,33 +6,33 @@ class ClusterUI
     public static void RunCreator()
     {
         Console.Clear();
-        Console.WriteLine("=== CLUSTER CREATOR ===");
-        Console.Write("Enter cluster name: ");
+        Console.WriteLine(Loc.Get("HeaderCreator"));
+        Console.Write(Loc.Get("EnterClusterName"));
         string name = Console.ReadLine() ?? string.Empty;
 
-        Console.Write("Enter source path: ");
+        Console.Write(Loc.Get("EnterClusterSource"));
         string source = Console.ReadLine() ?? string.Empty;
 
-        Console.Write("Enter backup path: ");
+        Console.Write(Loc.Get("EnterClusterTarget"));
         string target = Console.ReadLine() ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(target))
         {
-            Console.WriteLine("Error: All fields must be filled!");
+            Console.WriteLine(Loc.Get("ErrEmptyFields"));
             return;
         }
 
         if (target.StartsWith(source, StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine("Error: Destination cannot be a subfolder of source!");
+            Console.WriteLine(Loc.Get("ErrSubfolder"));
             return;
         }            
 
         Cluster newCluster = new Cluster(name, source, target);
         bool isAdded = AddCluster(newCluster); // jeśli już istniał: false
 
-        if (isAdded) Console.WriteLine($"Cluster {newCluster.Name} added!");
-        else Console.WriteLine($"Cluster {newCluster.Name} already exists!");
+        if (isAdded) Console.WriteLine(Loc.Format("ClusterAdded", newCluster.Name));
+        else Console.WriteLine(Loc.Format("ClusterExists", newCluster.Name));
         Console.ReadLine();
 
     }
@@ -40,14 +40,14 @@ class ClusterUI
     public static void RunRemover()
     {
         Console.Clear();
-        Console.WriteLine($"=== CLUSTER CREATOR ===");
-        Console.WriteLine($"Select to remove:");
+        Console.WriteLine(Loc.Get("HeaderCreator"));
+        Console.WriteLine(Loc.Get("SelectToRemove"));
         for (int i = 0; i < Clusters.Count; i++)
         {
             Console.WriteLine($"[{i+1}] {Clusters[i].Name}");
         }
 
-        Console.Write($"\nSelect: ");
+        Console.Write(Loc.Get("Select"));
         string input = Console.ReadLine() ?? "";
         if (IsWithinScope(input, Clusters, out int num))
         {
@@ -55,7 +55,7 @@ class ClusterUI
 
             if (!ConfirmRemove())
             {
-                Console.WriteLine("Anulowano...");
+                Console.WriteLine(Loc.Get("Cancelled"));
                 Console.ReadLine();
                 return;
             }
@@ -68,9 +68,9 @@ class ClusterUI
     public static bool ConfirmRemove()
     {
         Console.Clear();
-        Console.WriteLine($"Czy na pewno chcesz usunąć cluster?");
-        Console.WriteLine($"[T] Tak, usuń\n[N] Nie, anuluj");
-        Console.Write("Wybierz: ");
+        Console.WriteLine(Loc.Get("AskToRemoveCluster"));
+        Console.WriteLine(Loc.Get("ConfirmRemoveCluster"));
+        Console.Write(Loc.Get("Select"));
         string input = Console.ReadLine() ?? "";
         Console.Clear();
 
@@ -83,16 +83,14 @@ class ClusterUI
         while (true)
         {
             Console.Clear();
-            Console.WriteLine($"Cluster {c.Name}");
-            Console.WriteLine($"Source path: {c.Source}");
-            Console.WriteLine($"Target path: {c.Target}\n");
+            Console.WriteLine(Loc.Format("ClusterDetails", c.Name, c.Source, c.Target));
 
-            Console.WriteLine($"[1] Create Backup");
-            Console.WriteLine($"[2] Restore Backup");
-            Console.WriteLine($"[3] Show All Backups");
-            Console.WriteLine($"[Q] Back\n");
+            Console.WriteLine(Loc.Get("OptCreateBackup"));
+            Console.WriteLine(Loc.Get("OptRestoreBackup"));
+            Console.WriteLine(Loc.Get("OptShowBackups"));
+            Console.WriteLine(Loc.Get("OptBack"));
 
-            Console.Write($"Select: ");
+            Console.Write(Loc.Get("Select"));
             string input = Console.ReadLine() ?? "";
             if (input.ToLower() == "q") return;
             if (!IsWithinScope(input, (1, 3), out int num)) continue;
