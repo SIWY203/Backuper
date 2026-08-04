@@ -16,12 +16,12 @@ class MenuUI
             }
         }
 
-        Console.WriteLine($"");
+        Console.WriteLine();
         Console.WriteLine(Loc.Get("OptAddCluster"));
         Console.WriteLine(Loc.Get("OptRemoveCluster"));
         Console.WriteLine(Loc.Get("Quit"));
 
-        Console.Write($"Select: ");
+        Console.Write(Loc.Get("Select"));
         string input = Console.ReadLine() ?? "";
         if (IsWithinScope(input, Clusters, out int num))
         {
