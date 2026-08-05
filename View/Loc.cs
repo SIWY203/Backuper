@@ -207,10 +207,25 @@ public static class Loc
     }
 
 
+    // Lang Configs
+    private const string ConfigFile = "lang_config.txt";
+    public static void LoadLangConfig()
+    {
+        if (File.Exists(ConfigFile))
+        {
+            string lang = File.ReadAllText(ConfigFile).Trim();
+            if (Enum.TryParse(lang, true, out Lang parsedLang))
+            {
+                CurrentLang = parsedLang;
+                return;
+            }
+        }
+        CurrentLang = Lang.EN; // default
+    }
     public static void Set(Lang lang)
     {
         CurrentLang = lang;
+        File.WriteAllText(ConfigFile, lang.ToString());
     }
-
 }
 

@@ -4,7 +4,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-
+        Loc.LoadLangConfig();
         LoadClusters();
         if (Clusters.Count == 0)
         {
