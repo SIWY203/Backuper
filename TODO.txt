@@ -7,8 +7,5 @@
 	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii: CleanUp()
 	- ZARZĄDZANIE USTAWIENIAMI Z PLIKU !!!
 
-	- NOTATKA o dodawaniu wersji językowych w CSharpNotatnik 
-	- NOTATKA do słowników i inicjalizatora indeksatora: ["key"]
-
 */
 
