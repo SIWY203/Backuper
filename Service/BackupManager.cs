@@ -4,11 +4,10 @@
     {
         if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
 
-        // backup folder
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
         string targetDir = Path.Combine(c.Target, $"{c.Name}_{timestamp}");
-        CloneDirectory(c.Source, targetDir);
-        return true;
+
+        return CloneDirectory(c.Source, targetDir);
     }
 
 
@@ -17,80 +16,102 @@
         if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
 
         string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
-        if (backups.Length == 0) return false; // no backups
+        if (backups.Length == 0) return false;
 
-        string temp = $"{c.Source}_temp";
-        Directory.CreateDirectory(temp);
+        string latest = backups.Max()!;
 
-        string latest = backups.OrderBy(d => d).Last();
-        bool success = CloneDirectory(latest, temp);
+        // === TUAJ BĘDZIE SNAPSHOT PRE-RESTORE ===
+        // CreateSnapshot()
 
-        if (success)
-        {
-            Directory.Delete(c.Source, true);
-            Directory.Move(temp, c.Source);
-            return true;
-        }
+        return SafeReplaceDirectory(latest, c.Source);
 
-        return false;
-        
-    }
-
-
-    public static List<string> GetBackups(Cluster c)
-    {
-        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return new List<string>();
-
-        string pattern = $"{c.Name}_*";
-        string[] paths = Directory.GetDirectories(c.Target, pattern);
-        List<string> backups = paths.ToList();
-
-        if (!Directory.Exists(c.Target))
-        {
-            return new List<string>();
-        }
-        return backups;
-    }
-
-    public static bool AnyBackupExists(Cluster c)
-    {
-        if (GetBackups(c).Count == 0)
-        {
-            return false;
-        }
-        return true;
     }
 
 
     private static bool CloneDirectory(string src, string dest)
     {
-        // anti copy loop, if destination is inside source
-        if (dest.StartsWith(src, StringComparison.OrdinalIgnoreCase)) return false;
+        // anti copy-loop
+        if (IsSubdirectory(src, dest)) return false;
 
         try
         {
             Directory.CreateDirectory(dest);
 
-            foreach (var file in Directory.GetFiles(src))
+            foreach (string file in Directory.GetFiles(src))
             {
-                string fileName = Path.GetFileName(file);
-                string fileDest = Path.Combine(dest, fileName);
-                File.Copy(file, fileDest, true);
+                File.Copy(file, Path.Combine(dest, Path.GetFileName(file)), true);
             }
 
-            foreach (var dir in Directory.GetDirectories(src))
+            foreach (string dir in Directory.GetDirectories(src))
             {
-                string dirName = Path.GetFileName(dir);
-                string dirDest = Path.Combine(dest, dirName);
-                CloneDirectory(dir, dirDest); // recursion
+                if (!CloneDirectory(dir, Path.Combine(dest, Path.GetFileName(dir))))
+                    return false;
             }
+
+            return true;
         }
-        catch (Exception)
+        catch
         {
             return false;
         }
+    }
 
-        return true;
+
+    private static bool SafeReplaceDirectory(string source, string target)
+    {
+        string temp = $"{target}_temp";
+
+        if (!CloneDirectory(source, temp))
+        {
+            CleanupDirectory(temp);
+            return false;
+        }
+
+        try
+        {
+            if (Directory.Exists(target))
+                Directory.Delete(target, true);
+
+            Directory.Move(temp, target);
+            return true;
+        }
+        catch
+        {
+            
+            return false;
+        }
+    }
+
+
+    private static bool IsSubdirectory(string src, string dest)
+    {
+        string fullSrc = Path.GetFullPath(src);
+        string fullDest = Path.GetFullPath(dest);
+        string relative = Path.GetRelativePath(fullSrc, fullDest);
+
+        // gdy zaczyna się od ".." lub równe ".", to dest nie jest wewnątrz src
+        return !relative.StartsWith("..") && relative != ".";
+    }
+
+
+    public static List<string> GetBackups(Cluster c)
+    {
+        if (!Directory.Exists(c.Target)) return [];
+        return Directory.GetDirectories(c.Target, $"{c.Name}_*").ToList();
+    }
+
+
+    public static bool AnyBackupExists(Cluster c)
+    {
+        if (!Directory.Exists(c.Target)) return false;
+        return Directory.EnumerateDirectories(c.Target, $"{c.Name}_*").Any();
+    }
+
+
+    private static void CleanupDirectory(string path)
+    {
+        if (Directory.Exists(path))
+            Directory.Delete(path, true);
     }
 
 }

@@ -1,11 +1,21 @@
 ﻿
 /* SZKIC PROJEKTU
 
-	- może dodać mechanizm snapshotów zapisujących stan przed przywróceniem backupa?
+	- pre-restore snapshot
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
 	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii: CleanUp()
 	- ZARZĄDZANIE USTAWIENIAMI Z PLIKU !!!
+	- dodać możliwość edycji ścieżek w klastrach
+
+	ZMIANA:
+	bool SafeReplaceDirectory
+	bool RestoreBackup
+
+	NA:
+	(bool Success, string? TempPath) SafeReplaceDirectory
+	(bool Success, string? TempPath) RestoreBackup
+	
 
 */
 
