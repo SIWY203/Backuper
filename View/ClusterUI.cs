@@ -119,6 +119,81 @@ class ClusterUI
 
     public static void RunEditor(Cluster c)
     {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(Loc.Get("HeaderClusterEditor"));
+            Console.WriteLine(Loc.Format("ClusterDetails", c.Name, c.Source, c.Target));
+            Console.WriteLine(Loc.Get("OptUpdateClusterName"));
+            Console.WriteLine(Loc.Get("OptUpdateClusterSource"));
+            Console.WriteLine(Loc.Get("OptUpdateClusterTarget"));
+            Console.WriteLine(Loc.Get("OptBack"));
+
+            Console.Write(Loc.Get("Select"));
+            string input = Console.ReadLine() ?? "";
+            if (input.ToLower() == "q") return;
+            if (!IsWithinScope(input, (1, 3), out int num)) continue;
+
+            Console.Clear();
+            Console.WriteLine(Loc.Get("HeaderClusterEditor"));
+            switch (num)
+            {
+                case 1:
+                    Console.Write(Loc.Get("EnterClusterName"));
+                    string newName = Console.ReadLine() ?? "";
+                    Cluster? updatedName = UpdateClusterName(c, newName);
+                    if (updatedName != null)
+                    {
+                        c = updatedName;
+                        Console.WriteLine(Loc.Get("UpdateNameSuccess"));
+                    }
+                    else Console.WriteLine(Loc.Get("Failure"));
+                    Console.ReadLine();
+                    break;
+
+                case 2:
+                    Console.Write(Loc.Get("EnterClusterSource"));
+                    string newSource = Console.ReadLine() ?? "";
+                    if (c.Target.StartsWith(newSource, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine(Loc.Get("ErrSubfolder"));
+                        Console.ReadLine();
+                        break;
+                    }
+                    Cluster? updatedSource = UpdateClusterSource(c, newSource);
+                    if (updatedSource != null)
+                    {
+                        c = updatedSource;
+                        Console.WriteLine(Loc.Get("UpdatePathSuccess"));
+                    }
+                    else Console.WriteLine(Loc.Get("Failure"));
+                    Console.ReadLine();
+                    break;
+
+                case 3:
+                    Console.Write(Loc.Get("EnterClusterTarget"));
+                    string newTarget = Console.ReadLine() ?? "";
+                    if (newTarget.StartsWith(c.Source, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine(Loc.Get("ErrSubfolder"));
+                        Console.ReadLine();
+                        break;
+                    }
+                    Cluster? updatedTarget = UpdateClusterTarget(c, newTarget);
+                    if (updatedTarget != null)
+                    {
+                        c = updatedTarget;
+                        Console.WriteLine(Loc.Get("UpdatePathSuccess"));
+                    }
+                    else Console.WriteLine(Loc.Get("Failure"));
+                    Console.ReadLine();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        
 
     }
 

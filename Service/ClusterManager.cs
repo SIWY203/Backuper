@@ -51,9 +51,43 @@ class ClusterManager
     }
 
 
-    public static void EditCluster(Cluster c, params string[] args)
+    public static Cluster? UpdateClusterName(Cluster current, string newName)
     {
+        newName = newName.Trim();
+        if (string.IsNullOrWhiteSpace(newName)) return null;
 
+        int index = Clusters.IndexOf(current);
+        if (index == -1) return null;
+
+        Cluster newCluster = current with { Name = newName };
+        Clusters[index] = newCluster;
+        return SaveClusters() ? newCluster : null;
+    }
+
+    public static Cluster? UpdateClusterSource(Cluster current, string newSource)
+    {
+        newSource = newSource.Trim();
+        if (string.IsNullOrWhiteSpace(newSource) || !Directory.Exists(newSource)) return null;
+
+        int index = Clusters.IndexOf(current);
+        if (index == -1) return null;
+
+        Cluster newCluster = current with { Source = newSource };
+        Clusters[index] = newCluster;
+        return SaveClusters() ? newCluster : null;
+    }
+
+    public static Cluster? UpdateClusterTarget(Cluster current, string newTarget)
+    {
+        newTarget = newTarget.Trim();
+        if (string.IsNullOrWhiteSpace(newTarget) || !Directory.Exists(newTarget)) return null;
+
+        int index = Clusters.IndexOf(current);
+        if (index == -1) return null;
+
+        Cluster newCluster = current with { Target = newTarget };
+        Clusters[index] = newCluster;
+        return SaveClusters() ? newCluster : null;
     }
 
 

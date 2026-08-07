@@ -170,6 +170,47 @@ public static class Loc
         },
 
         // ================================
+        //  cluster editor
+        // ================================
+        ["HeaderClusterEditor"] = new() { 
+            [Lang.PL] = "============ EDYTOR KLASTRÓW ============",
+            [Lang.EN] = "============ CLUSTER EDITOR ============="
+        },
+        ["OptUpdateClusterName"] = new() { 
+            [Lang.PL] = "[1] Zmień nazwę",
+            [Lang.EN] = "[1] Change name"
+        },
+        ["OptUpdateClusterSource"] = new() { 
+            [Lang.PL] = "[2] Zmień ścieżkę źródłową",
+            [Lang.EN] = "[2] Change source path"
+        },
+        ["OptUpdateClusterTarget"] = new() { 
+            [Lang.PL] = "[3] Zmień ścieżkę docelową",
+            [Lang.EN] = "[3] Change backup path"
+        },
+        ["UpdateClusterName"] = new() { 
+            [Lang.PL] = "Podaj nową nazwę: ",
+            [Lang.EN] = "Enter new name: "
+        },
+        ["UpdateClusterSource"] = new() { 
+            [Lang.PL] = "Podaj nowe źródło: ",
+            [Lang.EN] = "Enter new source: "
+        },
+        ["UpdateClusterTarget"] = new() { 
+            [Lang.PL] = "Podaj nową ścieżkę backupów: ",
+            [Lang.EN] = "Enter new backup path: "
+        },
+        ["UpdateNameSuccess"] = new() { 
+            [Lang.PL] = "Nazwa została zmieniona!",
+            [Lang.EN] = "The name has been changed!"
+        },
+        ["UpdatePathSuccess"] = new() { 
+            [Lang.PL] = "Ścieżka została zmieniona!",
+            [Lang.EN] = "The path has been changed!"
+        },
+
+
+        // ================================
         //  standard
         // ================================
         ["OptBack"] = new()
