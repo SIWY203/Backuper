@@ -8,6 +8,12 @@
 	- ZARZĄDZANIE USTAWIENIAMI Z PLIKU !!!
 	- dodać możliwość edycji ścieżek w klastrach
 
+	- przenieść z ClusterManager.cs config\clusters.json do nowego ConfigManager.cs
+	- przenieść z Loc.cs lang_config.txt do nowego ConfigManager.cs
+
+
+
+	---------------
 	ZMIANA:
 	bool SafeReplaceDirectory
 	bool RestoreBackup
@@ -15,7 +21,10 @@
 	NA:
 	(bool Success, string? TempPath) SafeReplaceDirectory
 	(bool Success, string? TempPath) RestoreBackup
-	
+
+	DLA wysłania komunikatu o błędzie podczas move
+	---------------
+
 
 */
 

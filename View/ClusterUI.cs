@@ -37,6 +37,7 @@ class ClusterUI
 
     }
 
+
     public static void RunRemover()
     {
         Console.Clear();
@@ -65,6 +66,7 @@ class ClusterUI
 
     }
 
+
     public static bool ConfirmRemove()
     {
         Console.Clear();
@@ -78,13 +80,14 @@ class ClusterUI
         return false;
     }
 
+
     public static void Details(Cluster c)
     {
         while (true)
         {
             Console.Clear();
             Console.WriteLine(Loc.Format("ClusterDetails", c.Name, c.Source, c.Target));
-
+            Console.WriteLine(Loc.Get("OptEditCluster"));
             Console.WriteLine(Loc.Get("OptCreateBackup"));
             Console.WriteLine(Loc.Get("OptRestoreBackup"));
             Console.WriteLine(Loc.Get("OptShowBackups"));
@@ -92,9 +95,9 @@ class ClusterUI
 
             Console.Write(Loc.Get("Select"));
             string input = Console.ReadLine() ?? "";
+            if (input.ToLower() == "e") RunEditor(c);
             if (input.ToLower() == "q") return;
             if (!IsWithinScope(input, (1, 3), out int num)) continue;
-
             switch (num)
             {
                 case 1:
@@ -109,15 +112,15 @@ class ClusterUI
                 default:
                     break;
             }
-
             return; // leave after action
         }
-       
-
     }
 
 
+    public static void RunEditor(Cluster c)
+    {
 
+    }
 
 
 }

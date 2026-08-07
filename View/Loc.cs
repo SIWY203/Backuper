@@ -151,6 +151,11 @@ public static class Loc
             [Lang.PL] = "Klaster {0} \nŚcieżka źródłowa: {1} \nŚcieżka docelowa: {2} \n",
             [Lang.EN] = "Cluster {0} \nSource path: {1} \nTarget path: {2} \n"
         },
+        ["OptEditCluster"] = new()
+        {
+            [Lang.PL] = "[E] Edytuj klaster\n",
+            [Lang.EN] = "[E] Edit cluster\n"
+        },
         ["OptCreateBackup"] = new() {
             [Lang.PL] = "[1] Stwórz backup", 
             [Lang.EN] = "[1] Create Backup" 
