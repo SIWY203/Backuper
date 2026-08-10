@@ -76,7 +76,7 @@ class ClusterUI
         string input = Console.ReadLine() ?? "";
         Console.Clear();
 
-        if (input.ToUpper() == "T") return true;
+        if (input.ToUpper() == "Y") return true;
         return false;
     }
 
@@ -112,7 +112,7 @@ class ClusterUI
                 default:
                     break;
             }
-            return; // leave after action
+            //return; // leave after action
         }
     }
 
@@ -154,6 +154,12 @@ class ClusterUI
                 case 2:
                     Console.Write(Loc.Get("EnterClusterSource"));
                     string newSource = Console.ReadLine() ?? "";
+                    if (string.IsNullOrWhiteSpace(newSource))
+                    {
+                        Console.WriteLine(Loc.Get("ErrEmptyField"));
+                        Console.ReadLine();
+                        break;
+                    }
                     if (c.Target.StartsWith(newSource, StringComparison.OrdinalIgnoreCase))
                     {
                         Console.WriteLine(Loc.Get("ErrSubfolder"));
@@ -173,6 +179,12 @@ class ClusterUI
                 case 3:
                     Console.Write(Loc.Get("EnterClusterTarget"));
                     string newTarget = Console.ReadLine() ?? "";
+                    if (string.IsNullOrWhiteSpace(newTarget))
+                    {
+                        Console.WriteLine(Loc.Get("ErrEmptyField"));
+                        Console.ReadLine();
+                        break;
+                    }
                     if (newTarget.StartsWith(c.Source, StringComparison.OrdinalIgnoreCase))
                     {
                         Console.WriteLine(Loc.Get("ErrSubfolder"));
