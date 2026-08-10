@@ -1,4 +1,6 @@
-﻿public enum Lang { PL, EN }
+﻿using static ConfigManager;
+
+public enum Lang { PL, EN }
 
 public static class Loc
 {
@@ -279,12 +281,11 @@ public static class Loc
 
 
     // Lang Configs
-    private const string ConfigFile = "lang_config.txt";
     public static void LoadLangConfig()
     {
-        if (File.Exists(ConfigFile))
+        if (File.Exists(LanguageConfigFile))
         {
-            string lang = File.ReadAllText(ConfigFile).Trim();
+            string lang = File.ReadAllText(LanguageConfigFile).Trim();
             if (Enum.TryParse(lang, true, out Lang parsedLang))
             {
                 CurrentLang = parsedLang;
@@ -296,7 +297,7 @@ public static class Loc
     public static void Set(Lang lang)
     {
         CurrentLang = lang;
-        File.WriteAllText(ConfigFile, lang.ToString());
+        File.WriteAllText(LanguageConfigFile, lang.ToString());
     }
 }
 

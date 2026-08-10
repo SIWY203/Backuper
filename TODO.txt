@@ -12,17 +12,6 @@
 	- przenieść z Loc.cs lang_config.txt do nowego ConfigManager.cs
 
 
-
-	---------------
-	ZMIANA:
-	bool SafeReplaceDirectory
-	bool RestoreBackup
-
-	NA:
-	(bool Success, string? TempPath) SafeReplaceDirectory
-	(bool Success, string? TempPath) RestoreBackup
-
-	DLA wysłania komunikatu o błędzie podczas move
 	---------------
 
 	- dodać do notatek z pattern matching:

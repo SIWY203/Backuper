@@ -1,10 +1,9 @@
 ﻿using System.Text.Json;
+using static ConfigManager;
 
 class ClusterManager
 {
-    public static string ConfigPath => Path.Combine("config", "clusters.json");
     public static List<Cluster> Clusters = new();
-
 
     public static bool AddCluster(Cluster cluster)
     {
@@ -27,11 +26,11 @@ class ClusterManager
     {
         try
         {
-            EnsureDirectoryExists(ConfigPath);
+            EnsureDirectoryExists(ClusterConfigFile);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(Clusters, options);
-            File.WriteAllText(ConfigPath, json);
+            File.WriteAllText(ClusterConfigFile, json);
             return true;
         }
         catch (Exception)
@@ -43,10 +42,10 @@ class ClusterManager
 
     public static void LoadClusters()
     {
-        if (!File.Exists(ConfigPath)) return;
+        if (!File.Exists(ClusterConfigFile)) return;
 
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        var json = File.ReadAllText(ConfigPath);
+        var json = File.ReadAllText(ClusterConfigFile);
         Clusters = JsonSerializer.Deserialize<List<Cluster>>(json, options) ?? new List<Cluster>();
     }
 
