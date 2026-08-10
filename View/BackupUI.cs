@@ -22,17 +22,15 @@ class BackupUI
             Console.WriteLine(Loc.Get("Cancelled"));
             Console.ReadLine();
             return;
-        } 
-        
-        if (!AnyBackupExists(c))
-        {
-            Console.WriteLine(Loc.Get("NoBackupToRestore"));
-            Console.ReadLine();
-            return;
-        } 
+        }
 
-        bool success = RestoreBackup(c);
-        if (success) Console.WriteLine(Loc.Get("BackupRestored"));
+        RestoreResult result = RestoreBackup(c);
+        if (result.IsSuccess) Console.WriteLine(Loc.Get("BackupRestored"));
+        else
+        {
+            Console.WriteLine(Loc.Get(result.ErrorKey ?? "Failure"));
+            if (result.TempPath is not null) Console.WriteLine(Loc.Format("ErrTempSavedAt", result.TempPath));
+        }
         Console.ReadLine();
 
     }

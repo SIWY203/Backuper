@@ -11,18 +11,17 @@
     }
 
 
-    public static bool RestoreBackup(Cluster c)
+    public static RestoreResult RestoreBackup(Cluster c)
     {
-        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return RestoreResult.Fail("ErrPathNotExist");
 
         string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
-        if (backups.Length == 0) return false;
+        if (backups.Length == 0) return RestoreResult.Fail("NoBackupToRestore");
 
         string latest = backups.Max()!;
 
-        // === TUAJ BĘDZIE SNAPSHOT PRE-RESTORE ===
+        // === TUTAJ BĘDZIE SNAPSHOT PRE-RESTORE ===
         // CreateSnapshot()
-
         return SafeReplaceDirectory(latest, c.Source);
 
     }
@@ -57,14 +56,14 @@
     }
 
 
-    private static bool SafeReplaceDirectory(string source, string target)
+    private static RestoreResult SafeReplaceDirectory(string source, string target)
     {
         string temp = $"{target}_temp";
 
         if (!CloneDirectory(source, temp))
         {
             CleanupDirectory(temp);
-            return false;
+            return RestoreResult.Fail("ErrCloneFailed");
         }
 
         try
@@ -73,12 +72,12 @@
                 Directory.Delete(target, true);
 
             Directory.Move(temp, target);
-            return true;
+            return RestoreResult.Ok();
         }
         catch
         {
-            
-            return false;
+            // gdy błąd przy podmianie, temp pozostaje nieusunięty
+            return RestoreResult.Fail("ErrReplaceFailedTempSaved", temp);
         }
     }
 

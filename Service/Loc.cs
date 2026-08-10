@@ -96,6 +96,27 @@ public static class Loc
             [Lang.PL] = "Backupy klastra {0}: ",
             [Lang.EN] = "Backups of cluster {0}: "
         },
+        ["ErrPathNotExist"] = new()
+        {
+            [Lang.PL] = "Ścieżka źródłowa, lub do backupów nie istnieje!",
+            [Lang.EN] = "Source path or backup path does not exist!"
+        },
+        ["ErrCloneFailed"] = new()
+        {
+            [Lang.PL] = "Kopiowanie nie powiodło się!",
+            [Lang.EN] = "Copying failed!"
+        },
+        ["ErrReplaceFailedTempSaved"] = new()
+        {
+            [Lang.PL] = "Kopiowanie nie powiodło się! \nNieuszkodzone dane znajdują się w folderze tymczasowym",
+            [Lang.EN] = "Copy failed! \nUncorrupted data is located in the temporary folder"
+        },
+        ["ErrTempSavedAt"] = new()
+        {
+            [Lang.PL] = "Folder tymczasowy: {0}",
+            [Lang.EN] = "Temporary directory: {0}"
+        },
+
 
         // ================================
         //  clusters
@@ -119,6 +140,10 @@ public static class Loc
         ["ErrEmptyFields"] = new() { 
             [Lang.PL] = "Błąd: Wszystkie pola muszą być wypełnione!",
             [Lang.EN] = "Error: All fields must be filled!" 
+        },
+        ["ErrEmptyField"] = new() { 
+            [Lang.PL] = "Błąd: Nic nie wpisano!",
+            [Lang.EN] = "Error: Nothing was entered!"
         },
         ["ErrSubfolder"] = new() {
             [Lang.PL] = "Błąd: Ścieżka docelowa nie może być podfolderem źródła!",
