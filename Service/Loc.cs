@@ -185,6 +185,14 @@ public static class Loc
             [Lang.PL] = "[3] Pokaż wszystkie backupy",
             [Lang.EN] = "[3] Show All Backups" 
         },
+        ["ErrClusterAlreadyExist"] = new() { 
+            [Lang.PL] = "Błąd! Ten klaster już istnieje!",
+            [Lang.EN] = "Error! Cluster already exist!"
+        },
+        ["ErrSameDirectory"] = new() { 
+            [Lang.PL] = "Błąd! Nie można przypisać tego samego folderu do obu ścieżek!",
+            [Lang.EN] = "Error! Cannot assign the same folder to both paths!"
+        },
 
         // ================================
         //  cluster editor
