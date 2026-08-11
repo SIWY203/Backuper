@@ -7,24 +7,49 @@
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
         string targetDir = Path.Combine(c.Target, $"{c.Name}_{timestamp}");
 
-        return CloneDirectory(c.Source, targetDir);
+        if (!CloneDirectory(c.Source, targetDir))
+        {
+            CleanupDirectory(targetDir);
+            return false;
+        }
+
+        return true;
     }
 
 
-    public static RestoreResult RestoreBackup(Cluster c)
+    public static Result RestoreBackup(Cluster c)
     {
-        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return RestoreResult.Fail("ErrPathNotExist");
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return Result.Fail("ErrPathNotExist");
 
         string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
-        if (backups.Length == 0) return RestoreResult.Fail("NoBackupToRestore");
+        if (backups.Length == 0) return Result.Fail("NoBackupToRestore");
 
-        string latest = backups.Max()!;
+        //string latest = backups.Max()!;
+        string latest = backups.OrderByDescending(Directory.GetLastWriteTime).First();
 
-        // === TUTAJ BĘDZIE SNAPSHOT PRE-RESTORE ===
-        // CreateSnapshot()
+        var snapshotResult = CreateSnapshot(c);
+        if (!snapshotResult.IsSuccess) return snapshotResult;
         return SafeReplaceDirectory(latest, c.Source);
-
     }
+
+
+    public static Result CreateSnapshot(Cluster c)
+    {
+        if (!Directory.Exists(c.Source)) return Result.Fail("ErrSourceNotExist");
+
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+        string snapshotDir = Path.Combine(c.Target, "#snapshots", $"snapshot_{c.Name}_{timestamp}");
+
+        if (!CloneDirectory(c.Source, snapshotDir))
+        {
+            CleanupDirectory(snapshotDir);
+            return Result.Fail("ErrSnapshotCreatingFailed");
+        }
+        return Result.Ok();
+    }
+
+
+    // restore snapshot ---------------------
 
 
     private static bool CloneDirectory(string src, string dest)
@@ -56,36 +81,50 @@
     }
 
 
-    private static RestoreResult SafeReplaceDirectory(string source, string target)
+    private static Result SafeReplaceDirectory(string source, string target)
     {
-        string temp = $"{target}_temp";
+        char[] separators = [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar];
+        string cleanTarget = target.TrimEnd(separators);
 
-        if (!CloneDirectory(source, temp))
+        string tempCloned = $"{cleanTarget}_temp_restore";
+        string backupOriginal = $"{cleanTarget}_old_backup";
+
+        if (!CloneDirectory(source, tempCloned))
         {
-            CleanupDirectory(temp);
-            return RestoreResult.Fail("ErrCloneFailed");
+            CleanupDirectory(tempCloned);
+            return Result.Fail("ErrCloneFailed");
         }
 
         try
         {
             if (Directory.Exists(target))
-                Directory.Delete(target, true);
+            {
+                CleanupDirectory(backupOriginal);
+                Directory.Move(target, backupOriginal);
+            }
 
-            Directory.Move(temp, target);
-            return RestoreResult.Ok();
+            Directory.Move(tempCloned, target);
+            CleanupDirectory(backupOriginal);
+            return Result.Ok();
         }
         catch
         {
-            // gdy błąd przy podmianie, temp pozostaje nieusunięty
-            return RestoreResult.Fail("ErrReplaceFailedTempSaved", temp);
+            if (!Directory.Exists(target) && Directory.Exists(backupOriginal))
+            {
+                try { Directory.Move(backupOriginal, target); } catch { }
+            }
+
+            CleanupDirectory(tempCloned);
+            return Result.Fail("ErrCloneFailed");
         }
     }
 
 
     private static bool IsSubdirectory(string src, string dest)
     {
-        string fullSrc = Path.GetFullPath(src);
-        string fullDest = Path.GetFullPath(dest);
+        char[] separators = [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar];
+        string fullSrc = Path.GetFullPath(src).TrimEnd(separators);
+        string fullDest = Path.GetFullPath(dest).TrimEnd(separators);
         string relative = Path.GetRelativePath(fullSrc, fullDest);
 
         // gdy zaczyna się od ".." lub równe ".", to dest nie jest wewnątrz src
@@ -96,7 +135,9 @@
     public static List<string> GetBackups(Cluster c)
     {
         if (!Directory.Exists(c.Target)) return [];
-        return Directory.GetDirectories(c.Target, $"{c.Name}_*").ToList();
+        return Directory.GetDirectories(c.Target, $"{c.Name}_*")
+                        .OrderByDescending(Directory.GetLastWriteTime)
+                        .ToList();
     }
 
 
@@ -109,8 +150,14 @@
 
     private static void CleanupDirectory(string path)
     {
-        if (Directory.Exists(path))
-            Directory.Delete(path, true);
+        try
+        {
+            if (Directory.Exists(path)) Directory.Delete(path, true);
+        }
+        catch
+        {
+            // ignore errors, no crash
+        }
     }
 
 }
