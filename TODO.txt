@@ -4,7 +4,8 @@
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
 	- dodać retencję backupów i snapshotów, by trzymać max liczbę kopii: CleanUp()
-	- zapobieganie powielonej nazwy klastra
+	- zapobieganie powielonej nazwy klastra, wyświetlanie wszystkich zapisów w folderze, a nie tylko z daną nazwą
+	  nazwa jeszcze nie zmienia się odrazu po zmianie
 	- dodać obsługę RestoreSnapshot()
 		
 	- weryfikacja dyrektywą jaki OS przy starcie apki?
