@@ -5,11 +5,31 @@ class ClusterManager
 {
     public static List<Cluster> Clusters = new();
 
-    public static bool AddCluster(Cluster cluster)
+    public static Result AddCluster(string name, string source, string target)
     {
-        if (Clusters.Contains(cluster)) return false;
-        Clusters.Add(cluster);
-        return SaveClusters();
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(target))
+        {
+            return Result.Fail("ErrEmptyFields");
+        }
+
+        string fullSource = Path.GetFullPath(source);
+        string fullTarget = Path.GetFullPath(target);
+        if (string.Equals(fullSource, fullTarget, StringComparison.OrdinalIgnoreCase))
+        {
+            return Result.Fail("ErrSameDirectory");
+        }
+
+        if (PathHelper.IsSubdirectory(source, target))
+        {
+            return Result.Fail("ErrSubfolder");
+        }
+
+        Cluster newCluster = new Cluster(name, source, target);
+
+        if (Clusters.Contains(newCluster)) return Result.Fail("ErrClusterAlreadyExist");
+        Clusters.Add(newCluster);
+        if (!SaveClusters()) return Result.Fail("Failure");
+        return Result.Ok();
     }
 
 
@@ -98,5 +118,6 @@ class ClusterManager
             Directory.CreateDirectory(dirPath);
         }
     }
+
 
 }

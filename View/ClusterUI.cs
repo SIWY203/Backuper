@@ -14,27 +14,13 @@ class ClusterUI
         string source = Console.ReadLine() ?? string.Empty;
 
         Console.Write(Loc.Get("EnterClusterTarget"));
-        string target = Console.ReadLine() ?? string.Empty;
+        string target = Console.ReadLine() ?? string.Empty;  
 
-        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(target))
-        {
-            Console.WriteLine(Loc.Get("ErrEmptyFields"));
-            return;
-        }
+        Result result = AddCluster(name, source, target);
+        if (result.IsSuccess) Console.WriteLine(Loc.Format("ClusterAdded", name));
+        else Console.WriteLine(Loc.Get(result.ErrorKey ?? "Failure"));
 
-        if (target.StartsWith(source, StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine(Loc.Get("ErrSubfolder"));
-            return;
-        }            
-
-        Cluster newCluster = new Cluster(name, source, target);
-        bool isAdded = AddCluster(newCluster); // jeśli już istniał: false
-
-        if (isAdded) Console.WriteLine(Loc.Format("ClusterAdded", newCluster.Name));
-        else Console.WriteLine(Loc.Format("ClusterExists", newCluster.Name));
         Console.ReadLine();
-
     }
 
 
