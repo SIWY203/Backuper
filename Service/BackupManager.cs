@@ -5,7 +5,7 @@
         if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return false;
 
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-        string targetDir = Path.Combine(c.Target, $"{c.Name}_{timestamp}");
+        string targetDir = Path.Combine(c.Target, $"{timestamp}_{c.Name}");
 
         if (!CloneDirectory(c.Source, targetDir))
         {
@@ -21,10 +21,11 @@
     {
         if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return Result.Fail("ErrPathNotExist");
 
-        string[] backups = Directory.GetDirectories(c.Target, $"{c.Name}_*");
+        string[] backups = Directory.GetDirectories(c.Target)
+            .Where(dir => !Path.GetFileName(dir).StartsWith("#snapshots", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
         if (backups.Length == 0) return Result.Fail("NoBackupToRestore");
 
-        //string latest = backups.Max()!;
         string latest = backups.OrderByDescending(Directory.GetLastWriteTime).First();
 
         var snapshotResult = CreateSnapshot(c);
@@ -38,7 +39,7 @@
         if (!Directory.Exists(c.Source)) return Result.Fail("ErrSourceNotExist");
 
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-        string snapshotDir = Path.Combine(c.Target, "#snapshots", $"snapshot_{c.Name}_{timestamp}");
+        string snapshotDir = Path.Combine(c.Target, "#snapshots", $"snapshot_{timestamp}_{c.Name}");
 
         if (!CloneDirectory(c.Source, snapshotDir))
         {
@@ -92,7 +93,7 @@
         if (!CloneDirectory(source, tempCloned))
         {
             CleanupDirectory(tempCloned);
-            return Result.Fail("ErrCloneFailed");
+            return Result.Fail("ErrReplaceFailed");
         }
 
         try
@@ -115,7 +116,7 @@
             }
 
             CleanupDirectory(tempCloned);
-            return Result.Fail("ErrCloneFailed");
+            return Result.Fail("ErrReplaceFailed");
         }
     }
 
@@ -123,16 +124,19 @@
     public static List<string> GetBackups(Cluster c)
     {
         if (!Directory.Exists(c.Target)) return [];
-        return Directory.GetDirectories(c.Target, $"{c.Name}_*")
-                        .OrderByDescending(Directory.GetLastWriteTime)
-                        .ToList();
+        return Directory.GetDirectories(c.Target)
+            .Where(dir => !Path.GetFileName(dir).StartsWith("#snapshots"))
+            .OrderByDescending(Directory.GetLastWriteTime)
+            .ToList();
     }
 
 
     public static bool AnyBackupExists(Cluster c)
     {
         if (!Directory.Exists(c.Target)) return false;
-        return Directory.EnumerateDirectories(c.Target, $"{c.Name}_*").Any();
+
+        return Directory.EnumerateDirectories(c.Target)
+                        .Any(dir => !Path.GetFileName(dir).StartsWith("#snapshots"));
     }
 
 

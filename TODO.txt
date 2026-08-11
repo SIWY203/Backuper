@@ -4,17 +4,13 @@
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
 	- dodać retencję backupów i snapshotów, by trzymać max liczbę kopii: CleanUp()
-	- zapobieganie powielonej nazwy klastra, wyświetlanie wszystkich zapisów w folderze, a nie tylko z daną nazwą
-	  nazwa jeszcze nie zmienia się odrazu po zmianie
 	- dodać obsługę RestoreSnapshot()
+
+	- zapobieganie powielonej nazwy klastra, wyświetlanie wszystkich zapisów w folderze, a nie tylko z daną nazwą
+	- naprawić BUG z nazwą, gemini znalazł chyba
+	
 		
 	- weryfikacja dyrektywą jaki OS przy starcie apki?
-
-	---------------
-
-	- dodać do notatek z pattern matching:
-	if (UpdateClusterName(c, newName) is { } updated)
-	co znaczy "jeżeli wynik metody pasuje do czegokolwiek (czyli != null) to przypisz do zmiennej updated"
 
 */
 

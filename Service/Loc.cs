@@ -108,6 +108,11 @@ public static class Loc
             [Lang.PL] = "Kopiowanie nie powiodło się!",
             [Lang.EN] = "Copying failed!"
         },
+        ["ErrReplaceFailed"] = new()
+        {
+            [Lang.PL] = "Kopiowanie nie powiodło się!",
+            [Lang.EN] = "Copying failed!"
+        },
 
 
         // ================================
