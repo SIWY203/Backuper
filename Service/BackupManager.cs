@@ -55,7 +55,7 @@
     private static bool CloneDirectory(string src, string dest)
     {
         // anti copy-loop
-        if (IsSubdirectory(src, dest)) return false;
+        if (PathHelper.IsSubdirectory(src, dest)) return false;
 
         try
         {
@@ -117,18 +117,6 @@
             CleanupDirectory(tempCloned);
             return Result.Fail("ErrCloneFailed");
         }
-    }
-
-
-    private static bool IsSubdirectory(string src, string dest)
-    {
-        char[] separators = [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar];
-        string fullSrc = Path.GetFullPath(src).TrimEnd(separators);
-        string fullDest = Path.GetFullPath(dest).TrimEnd(separators);
-        string relative = Path.GetRelativePath(fullSrc, fullDest);
-
-        // gdy zaczyna się od ".." lub równe ".", to dest nie jest wewnątrz src
-        return !relative.StartsWith("..") && relative != ".";
     }
 
 
