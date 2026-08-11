@@ -24,12 +24,11 @@ class BackupUI
             return;
         }
 
-        RestoreResult result = RestoreBackup(c);
+        Result result = RestoreBackup(c);
         if (result.IsSuccess) Console.WriteLine(Loc.Get("BackupRestored"));
         else
         {
             Console.WriteLine(Loc.Get(result.ErrorKey ?? "Failure"));
-            if (result.TempPath is not null) Console.WriteLine(Loc.Format("ErrTempSavedAt", result.TempPath));
         }
         Console.ReadLine();
 
@@ -66,7 +65,13 @@ class BackupUI
             Console.WriteLine($" - {backup}");
         }
 
-        Process.Start("explorer.exe", c.Target);
+        try
+        {
+            if (OperatingSystem.IsWindows()) Process.Start("explorer.exe", c.Target);
+            else if (OperatingSystem.IsLinux()) Process.Start("xdg-open", c.Target);
+            else if (OperatingSystem.IsMacOS()) Process.Start("open", c.Target);
+        }
+        catch { /*ignore error*/ }
 
         Console.ReadLine();
 
