@@ -108,16 +108,6 @@ public static class Loc
             [Lang.PL] = "Kopiowanie nie powiodło się!",
             [Lang.EN] = "Copying failed!"
         },
-        ["ErrReplaceFailedTempSaved"] = new()
-        {
-            [Lang.PL] = "Kopiowanie nie powiodło się! \nNieuszkodzone dane znajdują się w folderze tymczasowym",
-            [Lang.EN] = "Copy failed! \nUncorrupted data is located in the temporary folder"
-        },
-        ["ErrTempSavedAt"] = new()
-        {
-            [Lang.PL] = "Folder tymczasowy: {0}",
-            [Lang.EN] = "Temporary directory: {0}"
-        },
 
 
         // ================================
@@ -236,6 +226,19 @@ public static class Loc
             [Lang.EN] = "The path has been changed!"
         },
 
+        // ================================
+        //  snapshot
+        // ================================
+        ["ErrSnapshotCreatingFailed"] = new()
+        {
+            [Lang.PL] = "Nie udało się zrobić snapshota! Anulowano.",
+            [Lang.EN] = "Snapshot failed! Operation canceled."
+        },
+        ["ErrSnapshotPathNotExist"] = new()
+        {
+            [Lang.PL] = "Ścieżka do snapshota nie istnieje!",
+            [Lang.EN] = "Snapshot failed! Operation canceled."
+        },
 
         // ================================
         //  standard

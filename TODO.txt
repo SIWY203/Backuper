@@ -1,16 +1,13 @@
 ﻿
 /* SZKIC PROJEKTU
 
-	- pre-restore snapshot
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
-	- dodać czyszczenie starszych backupów, by utrzymać max liczbę kopii: CleanUp()
-	- ZARZĄDZANIE USTAWIENIAMI Z PLIKU !!!
-	- dodać możliwość edycji ścieżek w klastrach
-
-	- przenieść z ClusterManager.cs config\clusters.json do nowego ConfigManager.cs
-	- przenieść z Loc.cs lang_config.txt do nowego ConfigManager.cs
-
+	- dodać retencję backupów i snapshotów, by trzymać max liczbę kopii: CleanUp()
+	- zapobieganie powielonej nazwy klastra
+	- dodać obsługę RestoreSnapshot()
+		
+	- weryfikacja dyrektywą jaki OS przy starcie apki?
 
 	---------------
 
