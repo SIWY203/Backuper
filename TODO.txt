@@ -5,8 +5,6 @@
 	- dodać autobackup robiony co X czasu
 	- dodać retencję backupów i snapshotów, by trzymać max liczbę kopii: CleanUp()
 	- dodać obsługę RestoreSnapshot()
-
-	- zapobieganie powielonej nazwy klastra
 	
 	
 	- weryfikacja dyrektywą jaki OS przy starcie apki?

@@ -50,7 +50,16 @@
     }
 
 
-    // restore snapshot ---------------------
+    public static Result RestoreSnapshot(Cluster c)
+    {
+        if (!Directory.Exists(c.Source) || !Directory.Exists(c.Target)) return Result.Fail("ErrPathNotExist");
+
+        string[] snapshots = Directory.GetDirectories(Path.Combine(c.Target, "#snapshots"), "snapshot_*");
+        if (snapshots.Length == 0) return Result.Fail("NoSnapshotToRestore");
+
+        string latest = snapshots.OrderByDescending(Directory.GetLastWriteTime).First();
+        return SafeReplaceDirectory(latest, c.Source);
+    }
 
 
     private static bool CloneDirectory(string src, string dest)

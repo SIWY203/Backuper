@@ -186,9 +186,13 @@ public static class Loc
             [Lang.PL] = "[2] Przywróć backup",
             [Lang.EN] = "[2] Restore Backup" 
         },
+        ["OptUndoRestore"] = new() {
+            [Lang.PL] = "[3] Cofnij przywracanie",
+            [Lang.EN] = "[3] Undo restore" 
+        },
         ["OptShowBackups"] = new() { 
-            [Lang.PL] = "[3] Pokaż wszystkie backupy",
-            [Lang.EN] = "[3] Show All Backups" 
+            [Lang.PL] = "[4] Pokaż wszystkie backupy",
+            [Lang.EN] = "[4] Show All Backups" 
         },
         ["ErrClusterAlreadyExist"] = new() { 
             [Lang.PL] = "Błąd! Ten klaster już istnieje!",
@@ -255,6 +259,26 @@ public static class Loc
         {
             [Lang.PL] = "Ścieżka do snapshota nie istnieje!",
             [Lang.EN] = "Snapshot failed! Operation canceled."
+        },
+        ["SnapshotRestored"] = new()
+        {
+            [Lang.PL] = "Cofnięto przywracanie!",
+            [Lang.EN] = "The restore was undone!"
+        },
+        ["NoSnapshotToRestore"] = new()
+        {
+            [Lang.PL] = "Brak snapshotów do przywrocenia!",
+            [Lang.EN] = "There is no spanshots to restore!"
+        },
+        ["AskForUndoRestore"] = new()
+        {
+            [Lang.PL] = "Czy na pewno chcesz cofnąć przywracanie?",
+            [Lang.EN] = "Are you sure you want to undo restore?"
+        },
+        ["ConfirmUndoRestore"] = new()
+        {
+            [Lang.PL] = "[Y] Tak, cofnij\n[N] Nie, anuluj",
+            [Lang.EN] = "[Y] Yes, undo\n[N] No, cancel"
         },
 
         // ================================

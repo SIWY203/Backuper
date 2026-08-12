@@ -76,6 +76,7 @@ class ClusterUI
             Console.WriteLine(Loc.Get("OptEditCluster"));
             Console.WriteLine(Loc.Get("OptCreateBackup"));
             Console.WriteLine(Loc.Get("OptRestoreBackup"));
+            Console.WriteLine(Loc.Get("OptUndoRestore"));
             Console.WriteLine(Loc.Get("OptShowBackups"));
             Console.WriteLine(Loc.Get("OptBack"));
 
@@ -88,7 +89,7 @@ class ClusterUI
             }
                 
             if (input.ToLower() == "q") return;
-            if (!IsWithinScope(input, (1, 3), out int num)) continue;
+            if (!IsWithinScope(input, (1, 4), out int num)) continue;
             switch (num)
             {
                 case 1:
@@ -98,6 +99,9 @@ class ClusterUI
                     BackupUI.Restore(c);
                     break;
                 case 3:
+                    BackupUI.UndoRestore(c);
+                    break;
+                case 4:
                     BackupUI.Show(c);
                     break;
                 default:
