@@ -9,7 +9,7 @@
 	- zapobieganie powielonej nazwy klastra, wyświetlanie wszystkich zapisów w folderze, a nie tylko z daną nazwą
 	- naprawić BUG z nazwą, gemini znalazł chyba
 	
-		
+	
 	- weryfikacja dyrektywą jaki OS przy starcie apki?
 
 */

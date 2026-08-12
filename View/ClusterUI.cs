@@ -81,7 +81,12 @@ class ClusterUI
 
             Console.Write(Loc.Get("Select"));
             string input = Console.ReadLine() ?? "";
-            if (input.ToLower() == "e") RunEditor(c);
+            if (input.ToLower() == "e")
+            {
+                c = RunEditor(c); // get edited data to show new details
+                continue;         // instantly refresh loop
+            }
+                
             if (input.ToLower() == "q") return;
             if (!IsWithinScope(input, (1, 3), out int num)) continue;
             switch (num)
@@ -103,7 +108,7 @@ class ClusterUI
     }
 
 
-    public static void RunEditor(Cluster c)
+    public static Cluster RunEditor(Cluster c)
     {
         while (true)
         {
@@ -117,7 +122,7 @@ class ClusterUI
 
             Console.Write(Loc.Get("Select"));
             string input = Console.ReadLine() ?? "";
-            if (input.ToLower() == "q") return;
+            if (input.ToLower() == "q") return c;
             if (!IsWithinScope(input, (1, 3), out int num)) continue;
 
             Console.Clear();
