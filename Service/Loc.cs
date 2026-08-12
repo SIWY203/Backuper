@@ -238,6 +238,10 @@ public static class Loc
             [Lang.PL] = "Ścieżka została zmieniona!",
             [Lang.EN] = "The path has been changed!"
         },
+        ["NameIsTaken"] = new() { 
+            [Lang.PL] = "Nazwa jest już zajęta!",
+            [Lang.EN] = "Name is already taken!"
+        },
 
         // ================================
         //  snapshot

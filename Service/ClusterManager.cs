@@ -12,6 +12,9 @@ class ClusterManager
             return Result.Fail("ErrEmptyFields");
         }
 
+        Result nameCheck = IsNameAvailable(name);
+        if (!nameCheck.IsSuccess) return nameCheck;
+
         string fullSource = Path.GetFullPath(source);
         string fullTarget = Path.GetFullPath(target);
         if (string.Equals(fullSource, fullTarget, StringComparison.OrdinalIgnoreCase))
@@ -70,17 +73,20 @@ class ClusterManager
     }
 
 
-    public static Cluster? UpdateClusterName(Cluster current, string newName)
+    public static (Result r, Cluster? c) UpdateClusterName(Cluster current, string newName)
     {
         newName = newName.Trim();
-        if (string.IsNullOrWhiteSpace(newName)) return null;
+        if (string.IsNullOrWhiteSpace(newName)) return (Result.Fail("ErrEmptyField"), null);
+
+        Result nameCheck = IsNameAvailable(newName);
+        if (!nameCheck.IsSuccess) return (nameCheck, null);
 
         int index = Clusters.IndexOf(current);
-        if (index == -1) return null;
+        if (index == -1) return (Result.Fail("Failure"), null);
 
         Cluster newCluster = current with { Name = newName };
         Clusters[index] = newCluster;
-        return SaveClusters() ? newCluster : null;
+        return SaveClusters() ? (Result.Ok(), newCluster) : (Result.Fail("Failure"), null);
     }
 
     public static Cluster? UpdateClusterSource(Cluster current, string newSource)
@@ -119,5 +125,11 @@ class ClusterManager
         }
     }
 
+    private static Result IsNameAvailable(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return Result.Fail("Failure");
+        if (Clusters.Any(c => c.Name == name)) return Result.Fail("NameIsTaken");
+        return Result.Ok();
+    }
 
 }

@@ -132,13 +132,13 @@ class ClusterUI
                 case 1:
                     Console.Write(Loc.Get("EnterClusterName"));
                     string newName = Console.ReadLine() ?? "";
-                    Cluster? updatedName = UpdateClusterName(c, newName);
+                    var (result, updatedName) = UpdateClusterName(c, newName);
                     if (updatedName != null)
                     {
                         c = updatedName;
                         Console.WriteLine(Loc.Get("UpdateNameSuccess"));
                     }
-                    else Console.WriteLine(Loc.Get("Failure"));
+                    else Console.WriteLine(Loc.Get(result.ErrorKey ?? "Failure"));
                     Console.ReadLine();
                     break;
 
