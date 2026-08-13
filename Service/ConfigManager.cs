@@ -9,6 +9,7 @@
 
     public static string ClusterConfigFile { get; } = Path.Combine(AppFolder, "clusters.json");
     public static string LanguageConfigFile { get; } = Path.Combine(AppFolder, "lang_config.txt");
+    public static string LimitsConfigFile { get; } = Path.Combine(AppFolder, "limits_config.txt");
 
     static ConfigManager()
     {
