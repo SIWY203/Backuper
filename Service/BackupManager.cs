@@ -12,7 +12,7 @@
             CleanupDirectory(targetDir);
             return false;
         }
-
+        Cleaner.Check(c, Cleaner.Mode.Backup); // delete old backups if max count
         return true;
     }
 
@@ -30,6 +30,7 @@
 
         var snapshotResult = CreateSnapshot(c);
         if (!snapshotResult.IsSuccess) return snapshotResult;
+        Cleaner.Check(c, Cleaner.Mode.Snapshot);
         return SafeReplaceDirectory(latest, c.Source);
     }
 
