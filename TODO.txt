@@ -3,8 +3,8 @@
 
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
-	- dodać retencję backupów i snapshotów, by trzymać max liczbę kopii: CleanUp()
-	- dodać obsługę RestoreSnapshot()
+
+	- info o aplikacji, o snapshotach itp
 	
 	
 	- weryfikacja dyrektywą jaki OS przy starcie apki?
