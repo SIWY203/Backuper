@@ -59,6 +59,37 @@ public static class Loc
             [Lang.PL] = "[2] Polski",
             [Lang.EN] = "[2] Polski"
         },
+        ["BackupLimit"] = new()
+        {
+            [Lang.PL] = "[2] Limit kopii",
+            [Lang.EN] = "[2] Backup limit"
+        },
+        ["ShowCurrentLimits"] = new()
+        {
+            [Lang.PL] = "Aktualny limit backupów: {0} \nAktualny limit snapshotów: {1}",
+            [Lang.EN] = "Current backup limit: {0} \nCurrent snapshot limit: {1}"
+        },
+        ["SetBackupLimit"] = new()
+        {
+            [Lang.PL] = "[1] Ustaw limit backupów",
+            [Lang.EN] = "[1] Set backup count limit"
+        },
+        ["SetSnapshotLimit"] = new()
+        {
+            [Lang.PL] = "[2] Ustaw limit snapshotów",
+            [Lang.EN] = "[2] Set snapshot count limit"
+        },
+        ["EnterLimitValue"] = new()
+        {
+            [Lang.PL] = "Podaj nowy limit: ",
+            [Lang.EN] = "Ender a new limit: "
+        },
+        ["NewLimitSet"] = new()
+        {
+            [Lang.PL] = "Nowy limit został ustawiony.",
+            [Lang.EN] = "A new limit has been set."
+        },
+
 
         // ================================
         //  backups
@@ -300,6 +331,10 @@ public static class Loc
         ["Failure"] = new() {
             [Lang.PL] = "Niepowodzenie!",
             [Lang.EN] = "Failure!"
+        },        
+        ["NotNumber"] = new() {
+            [Lang.PL] = "To nie jest liczba!",
+            [Lang.EN] = "This is not a number!"
         },        
         
     

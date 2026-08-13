@@ -5,6 +5,7 @@ class Program
     public static void Main(string[] args)
     {
         Loc.LoadLangConfig();
+        Cleaner.LoadConfig();
         LoadClusters();
         if (Clusters.Count == 0)
         {
