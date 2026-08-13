@@ -89,6 +89,11 @@ public static class Loc
             [Lang.PL] = "Nowy limit został ustawiony.",
             [Lang.EN] = "A new limit has been set."
         },
+        ["ErrNumberOutOfRange"] = new()
+        {
+            [Lang.PL] = "Liczba przekracza dozwolony zakres.",
+            [Lang.EN] = "The number exceeds the allowed range."
+        },
 
 
         // ================================
