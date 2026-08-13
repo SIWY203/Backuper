@@ -37,33 +37,45 @@ class MenuUI
 
     public static void Settings()
     {
-        Console.Clear();
-        Console.WriteLine(Loc.Get("HeaderSettings"));
-        Console.WriteLine(Loc.Get("Language"));
-        Console.WriteLine(Loc.Get("BackupLimit"));
-        Console.Write(Loc.Get("Select"));
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(Loc.Get("HeaderSettings"));
+            Console.WriteLine(Loc.Get("Language"));
+            Console.WriteLine(Loc.Get("BackupLimit"));
+            Console.WriteLine();
+            Console.WriteLine(Loc.Get("OptBack"));
+            Console.Write(Loc.Get("Select"));
 
-        string input = Console.ReadLine() ?? "";
-        if (input == "1") LanguageSettings();
-        if (input == "2") LimitSettings();
+            string input = Console.ReadLine() ?? "";
+            if (input.ToUpper() == "Q") return;
+            if (input == "1") LanguageSettings();
+            if (input == "2") LimitSettings();
+        }
     }
 
     public static void LanguageSettings()
     {
-        Console.Clear();
-        Console.WriteLine(Loc.Get("English"));
-        Console.WriteLine(Loc.Get("Polish"));
-        Console.Write(Loc.Get("Select"));
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(Loc.Get("English"));
+            Console.WriteLine(Loc.Get("Polish"));
+            Console.WriteLine();
+            Console.WriteLine(Loc.Get("OptBack"));
+            Console.Write(Loc.Get("Select"));
 
-        string input = Console.ReadLine() ?? "";
+            string input = Console.ReadLine() ?? "";
+            if (input.ToUpper() == "Q") return;
 
-        if (input == "1") Loc.Set(Lang.EN);
-        else if (input == "2") Loc.Set(Lang.PL);
-        else return;
+            else if (input == "1") Loc.Set(Lang.EN);
+            else if (input == "2") Loc.Set(Lang.PL);
+            else continue;
 
-        Console.Clear();
-        Console.WriteLine(Loc.Get("LanguageSet"));
-        Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine(Loc.Get("LanguageSet"));
+            Console.ReadLine();
+        }
     }
 
     public static void LimitSettings()
@@ -71,9 +83,11 @@ class MenuUI
         while (true)
         {
             Console.Clear();
-            Console.WriteLine(Loc.Format("ShowCurrentLimits", Cleaner.MaxBackupCount, Cleaner.MaxSnapshotCount));
+            Console.WriteLine(Loc.Format("ShowCurrentLimits", Cleaner.CurrentLimit.MaxBackupCount, Cleaner.CurrentLimit.MaxSnapshotCount));
+            Console.WriteLine();
             Console.WriteLine(Loc.Get("SetBackupLimit"));
             Console.WriteLine(Loc.Get("SetSnapshotLimit"));
+            Console.WriteLine();
             Console.WriteLine(Loc.Get("OptBack"));
             Console.Write(Loc.Get("Select"));
         
@@ -83,6 +97,7 @@ class MenuUI
 
             Cleaner.Mode mode = num == 1 ? Cleaner.Mode.Backup : Cleaner.Mode.Snapshot;
 
+            Console.Clear();
             Console.Write(Loc.Get("EnterLimitValue"));
             string limitInput = Console.ReadLine() ?? "";
             if (!int.TryParse(limitInput, out int limit))
@@ -90,15 +105,24 @@ class MenuUI
                 Console.Clear();
                 Console.WriteLine(Loc.Get("NotNumber"));
                 Console.ReadLine();
-                return;
+                continue;
             }
 
-            Cleaner.SetLimit(limit, mode);
+            Result r = Cleaner.SetLimit(limit, mode);
 
             Console.Clear();
-            Console.WriteLine(Loc.Get("NewLimitSet"));
-            Console.ReadLine();
-            return;
+            if (!r.IsSuccess)
+            {
+                Console.WriteLine(Loc.Get(r.ErrorKey ?? "Failure"));
+                Console.ReadLine();
+                continue;
+            }
+            else
+            {
+                Console.WriteLine(Loc.Get("NewLimitSet"));
+                Console.ReadLine();
+            }
+                
         }
         
     }
