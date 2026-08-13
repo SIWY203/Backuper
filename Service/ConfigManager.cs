@@ -4,7 +4,7 @@
 #if DEBUG
         AppContext.BaseDirectory;
 #else
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Backuper");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Backuper by Siwy203");
 #endif
 
     public static string ClusterConfigFile { get; } = Path.Combine(AppFolder, "clusters.json");
