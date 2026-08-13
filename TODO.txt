@@ -4,8 +4,10 @@
 	- dodać grupowanie folderów do backupów
 	- dodać autobackup robiony co X czasu
 
-	- info o aplikacji, o snapshotach itp
-	
+	- dodać informacje dla usera:
+	  * o tworzeniu snapshota podczas restore
+	  * o różnicy między backupami i snapshotami w limit settings
+	  * o możliwości upuszczenia folderu w kreatorze klastrów i edytorze	
 	
 	- weryfikacja dyrektywą jaki OS przy starcie apki?
 
